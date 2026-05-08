@@ -352,21 +352,35 @@
         feather.replace();
     });
 
-    // Accordions
+    // FIXED ACCORDIONS LOGIC
     const accordions = document.querySelectorAll('.accordion-toggle');
-    accordions.forEach(button => {
-      button.addEventListener('click', () => {
-        const content = button.nextElementSibling;
-        const icon = button.querySelector('.icon-wrapper');
-        
-        accordions.forEach(otherBtn => {
-            if (otherBtn !== button) {
-                otherBtn.nextElementSibling.style.maxHeight = null;
-                otherBtn.nextElementSibling.classList.remove('expanded');
-                otherBtn.querySelector('.icon-wrapper').style.transform = 'rotate(0deg)';
+    accordions.forEach(card => {
+      // Look inside the specific card for its content and icon
+      const content = card.querySelector('.accordion-content');
+      const icon = card.querySelector('.icon-wrapper');
+      
+      // Stop clicks inside the content area from closing the accordion
+      if (content) {
+        content.addEventListener('click', (e) => e.stopPropagation());
+      }
+
+      card.addEventListener('click', () => {
+        // Close other accordions
+        accordions.forEach(otherCard => {
+            if (otherCard !== card) {
+                const otherContent = otherCard.querySelector('.accordion-content');
+                const otherIcon = otherCard.querySelector('.icon-wrapper');
+                if (otherContent) {
+                  otherContent.style.maxHeight = null;
+                  otherContent.classList.remove('expanded');
+                }
+                if (otherIcon) {
+                  otherIcon.style.transform = 'rotate(0deg)';
+                }
             }
         });
 
+        // Toggle the clicked accordion
         if (content.style.maxHeight) {
           content.style.maxHeight = null;
           content.classList.remove('expanded');
