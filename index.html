@@ -12,8 +12,20 @@
       theme: {
         extend: {
           fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: {
-            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' }
+          animation: {
+            'gradient-x': 'gradient-x 15s ease infinite',
+          },
+          keyframes: {
+            'gradient-x': {
+              '0%, 100%': {
+                'background-size': '200% 200%',
+                'background-position': 'left center'
+              },
+              '50%': {
+                'background-size': '200% 200%',
+                'background-position': 'right center'
+              },
+            }
           }
         }
       }
@@ -21,267 +33,316 @@
   </script>
   
   <script src="https://unpkg.com/feather-icons"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
+    /* Premium Animations & Glow Effects */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      transform: translateY(40px);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
+    
     .accordion-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
       opacity: 0;
     }
     .accordion-content.expanded { opacity: 1; }
-    
-    /* Modern Gradient Text */
-    .text-gradient {
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-image: linear-gradient(90deg, #2563eb, #06b6d4);
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    .dark .text-gradient {
-      background-image: linear-gradient(90deg, #60a5fa, #22d3ee);
+    .dark .glass-card {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .hover-glow:hover {
+      box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.3);
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 selection:bg-brand-200 dark:selection:bg-brand-900">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-500 selection:bg-blue-600 selection:text-white">
 
-  <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">Sanket Navale</span>
-      <div class="flex gap-4 md:gap-6 items-center">
-        <a href="#skills" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Skills</a>
-        <a href="#timeline" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Journey</a>
-        <a href="#experience" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Case Studies</a>
-        <a href="#projects" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Projects</a>
+  <nav class="fixed w-full top-0 z-50 glass-card border-b border-slate-200/50 dark:border-slate-800/50 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <span class="font-extrabold text-xl tracking-tighter text-slate-900 dark:text-white flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></div>
+        Sanket Navale
+      </span>
+      <div class="flex gap-4 md:gap-8 items-center">
+        <a href="#skills" class="hidden md:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Expertise</a>
+        <a href="#experience" class="hidden md:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Case Studies</a>
+        <a href="#projects" class="hidden md:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Projects</a>
         
-        <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+        <button id="theme-toggle" class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:scale-110 transition-transform">
           <i data-feather="moon" id="theme-icon" class="w-4 h-4"></i>
         </button>
 
-        <a href="mailto:snavale1@jh.edu?subject=Requesting%20Full%20Resume%20-%20Sanket%20Navale&body=Hi%20Sanket,%0D%0A%0D%0AI%20was%20looking%20at%20your%20portfolio%20and%20would%20love%20to%20request%20a%20copy%20of%20your%20full%20resume.%0D%0A%0D%0AThank%20you!" 
-           class="flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-md hover:shadow-lg">
-          <i data-feather="lock" class="w-4 h-4"></i> Request Resume
+        <a href="mailto:snavale1@jh.edu?subject=Requesting%20Resume%20-%20Portfolio%20Visitor&body=Hi%20Sanket,%0A%0AI%20was%20viewing%20your%20portfolio%20and%20would%20love%20to%20request%20a%20copy%20of%20your%20resume.%0A%0AThanks!" 
+           class="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5 transition-all">
+          Request Resume <i data-feather="lock" class="w-3.5 h-3.5"></i>
         </a>
       </div>
     </div>
   </nav>
 
-  <header class="max-w-6xl mx-auto px-6 py-24 md:py-32 reveal">
-    <div class="max-w-4xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-sm font-semibold mb-6 border border-brand-100 dark:border-brand-800">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-        </span>
-        Available for Co-Op & Internships
-      </div>
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6">
-        Bridging Technical Engineering and <span class="text-gradient">AI Product Strategy.</span>
-      </h1>
-      <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-3xl">
-        Master's candidate in Engineering Management at Johns Hopkins University. I build scalable infrastructure, design unified AI governance frameworks, and translate complex data into high-ROI product strategies.
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <a href="#experience" class="flex items-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-500/25 hover:-translate-y-0.5 transition-all">
-          Explore Case Studies <i data-feather="arrow-right" class="w-4 h-4"></i>
-        </a>
+  <header class="relative pt-40 pb-20 md:pt-52 md:pb-32 overflow-hidden">
+    <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-400/20 to-purple-400/20 dark:from-blue-600/10 dark:to-purple-600/10 blur-[100px] -z-10 rounded-full"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 reveal">
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 mb-6">
+          <span class="flex h-2 w-2 rounded-full bg-blue-600"></span>
+          <span class="text-xs font-bold text-blue-700 dark:text-blue-300 tracking-wide uppercase">Open to Summer 2026 Opportunities</span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 text-slate-900 dark:text-white">
+          Architecting strategy.<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 animate-gradient-x">Engineering scale.</span>
+        </h1>
+        <p class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-3xl font-light">
+          Master's candidate in Engineering Management at <span class="font-semibold text-slate-900 dark:text-slate-200">Johns Hopkins University</span>. I bridge the gap between deep technical infrastructure and high-level AI product governance to deliver measurable market value.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#experience" class="flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform shadow-xl">
+            Explore Case Studies <i data-feather="chevron-down" class="w-5 h-5"></i>
+          </a>
+        </div>
       </div>
     </div>
   </header>
 
-  <section id="skills" class="py-20 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-6xl mx-auto px-6 reveal">
-      <div class="flex items-center gap-3 mb-12">
-        <i data-feather="cpu" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-        <h2 class="text-3xl font-bold">Core Capabilities</h2>
+  <section id="skills" class="py-24 bg-slate-100/50 dark:bg-slate-900/20 border-t border-slate-200/50 dark:border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6 reveal">
+      <div class="mb-12">
+        <h2 class="text-3xl font-extrabold mb-4">Core Competencies</h2>
+        <p class="text-slate-600 dark:text-slate-400">A hybrid skill set balancing technical execution with strategic vision.</p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-brand-300 transition-colors">
-          <i data-feather="target" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">AI & Machine Learning</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Generative AI & RAG</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Agentic Workflows</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">TensorFlow & OpenCV</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">LLM Evaluation & Bias</span>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover-glow transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mb-6">
+            <i data-feather="compass" class="text-blue-600 dark:text-blue-400"></i>
           </div>
-        </div>
-        
-        <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-brand-300 transition-colors">
-          <i data-feather="trending-up" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">Product & Strategy</h3>
+          <h3 class="text-xl font-bold mb-4">Product & Strategy</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Product Discovery</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">ROI & Financial Modeling</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Agile/Scrum</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Cross-functional Leadership</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Roadmap Development</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">GTM Strategy</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Competitive Analysis</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Cross-Functional Leadership</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Stakeholder Alignment</span>
           </div>
         </div>
 
-        <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-brand-300 transition-colors">
-          <i data-feather="cloud" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">Cloud & Infrastructure</h3>
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover-glow transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center mb-6">
+            <i data-feather="cpu" class="text-purple-600 dark:text-purple-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4">AI & Machine Learning</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">AWS, Azure, GCP</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Docker & Kubernetes</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Terraform (IaC)</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">CI/CD Pipelines</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Generative AI Strategy</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Agentic Workflows (RAG)</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">AI Governance Frameworks</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">TensorFlow / PyTorch</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Model Evaluation</span>
           </div>
         </div>
 
-        <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 hover:border-brand-300 transition-colors">
-          <i data-feather="terminal" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">Languages & Core Tech</h3>
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover-glow transition-all md:col-span-1">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mb-6">
+            <i data-feather="cloud" class="text-indigo-600 dark:text-indigo-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4">Cloud, DevOps & Data</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Golang</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">Python</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">JavaScript / React</span>
-            <span class="px-2 py-1 bg-white dark:bg-slate-800 text-sm rounded shadow-sm">SQL & Microservices</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">AWS / Azure / GCP</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Kubernetes & Docker</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Terraform (IaC)</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Python / Golang / SQL</span>
+            <span class="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">Microservices Architecture</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="timeline" class="py-20 bg-slate-100 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-4xl mx-auto px-6 reveal">
-      <div class="flex items-center gap-3 mb-12">
-        <i data-feather="map" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-        <h2 class="text-3xl font-bold">The Journey So Far</h2>
-      </div>
-
-      <div class="relative border-l-2 border-brand-200 dark:border-brand-900 ml-3 md:ml-6 space-y-10">
-        
-        <div class="relative pl-8 md:pl-10 reveal">
-          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-600 border-4 border-slate-100 dark:border-slate-900"></div>
-          <p class="text-sm font-bold text-brand-600 dark:text-brand-400 mb-1">Summer 2026</p>
-          <h3 class="text-xl font-bold">Upcoming Internship</h3>
-          <p class="text-slate-600 dark:text-slate-400 mt-2">Accepted summer internship offer at Calix to further develop strategic execution in a fast-paced environment.</p>
-        </div>
-
-        <div class="relative pl-8 md:pl-10 reveal">
-          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-100 dark:border-slate-900"></div>
-          <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">Aug 2025 - Dec 2026</p>
-          <h3 class="text-xl font-bold">M.S. in Engineering Management</h3>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">Johns Hopkins University</p>
-          <p class="text-slate-600 dark:text-slate-400 mt-2">Specializing in AI governance frameworks, healthcare operations modeling, and product innovation strategies.</p>
-        </div>
-
-        <div class="relative pl-8 md:pl-10 reveal">
-          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-100 dark:border-slate-900"></div>
-          <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">Sep 2023 - Jul 2025</p>
-          <h3 class="text-xl font-bold">Software Engineer</h3>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">Persistent Systems Limited</p>
-          <p class="text-slate-600 dark:text-slate-400 mt-2">Engineered scalable cloud infrastructure, secured FedRAMP compliance, and optimized CI/CD pipelines.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience" class="py-20 border-t border-slate-200 dark:border-slate-800">
+  <section id="experience" class="py-24 border-t border-slate-200 dark:border-slate-800">
     <div class="max-w-4xl mx-auto px-6">
-      <div class="flex items-center gap-3 mb-12 reveal">
-        <i data-feather="briefcase" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-        <h2 class="text-3xl font-bold">Professional Case Studies</h2>
+      <div class="mb-16 reveal">
+        <h2 class="text-3xl font-extrabold mb-4">Strategic Engagements</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-lg">Detailed breakdowns of my methodology, execution, and quantifiable business impact.</p>
       </div>
       
       <div class="space-y-6">
-        
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all reveal cursor-pointer group accordion-toggle">
-          <div class="w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none">
-            <div>
-              <h3 class="text-xl font-bold mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Product Strategy Consultant - AI & Governance</h3>
-              <p class="text-brand-600 dark:text-brand-400 font-medium">Amazon Web Services <span class="text-slate-400 dark:text-slate-500 font-normal ml-2">| Oct '25 - Jan '26</span></p>
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover-glow transition-all reveal group">
+          <button class="accordion-toggle w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none relative overflow-hidden rounded-3xl">
+            <div class="relative z-10">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider rounded-md">Capstone</span>
+                <p class="text-slate-500 font-medium text-sm">Oct 2025 - Jan 2026</p>
+              </div>
+              <h3 class="text-2xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Product Strategy Consultant - AI & Governance</h3>
+              <p class="text-slate-600 dark:text-slate-400 font-medium">Amazon Web Services</p>
             </div>
-            <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full transform transition-transform duration-300 icon-wrapper">
-              <i data-feather="chevron-down" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+            <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-full transform transition-transform duration-300 icon-wrapper relative z-10 border border-slate-100 dark:border-slate-700">
+              <i data-feather="plus" class="w-5 h-5 text-slate-900 dark:text-white"></i>
             </div>
-          </div>
+          </button>
           
-          <div class="accordion-content px-6 md:px-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 rounded-b-2xl cursor-default">
-            <div class="py-6 space-y-6">
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Strategic Discovery</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Identified 7 critical market gaps (including Shadow AI and Multi-Agent failures) within the AI governance sector by conducting 8 expert interviews and evaluating competitors (Collibra, Informatica) against Gartner Magic Quadrant criteria.</p>
+          <div class="accordion-content px-6 md:px-8 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-slate-800/50 rounded-b-3xl">
+            <div class="py-8 space-y-8">
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2"><i data-feather="target" class="w-4 h-4"></i> The Directive</h4>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Enterprise clients lack unified visibility into multi-agent AI failures, Shadow AI, and data poisoning. The objective was to architect a unified governance framework to de-risk scalable AI adoption in highly regulated industries.</p>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2"><i data-feather="activity" class="w-4 h-4"></i> Strategic Execution</h4>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Led market discovery and competitive benchmarking against Gartner Magic Quadrant leaders (Collibra, Informatica). Synthesized insights from 8 expert interviews to design a 3-layer mitigation architecture (Data, AI, Agentic) with real-time monitoring and tiered access protocols.</p>
+                </div>
               </div>
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">The Solution Architecture</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Authored a comprehensive white paper on Agentic AI governance, proposing a 3-layer mitigation strategy (Real-time Monitoring, Tiered Access, Machine-Readable Policies) to validate scalable frameworks for regulated industries.</p>
-              </div>
-              <div class="bg-brand-50 dark:bg-brand-900/20 p-5 rounded-xl border border-brand-100 dark:border-brand-800 shadow-inner">
-                <h4 class="text-sm font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider mb-2">Business Impact & ROI</h4>
-                <p class="text-slate-900 dark:text-white font-medium">Delivered a compelling business case by modeling financial scenarios, estimating a total cost of ownership (TCO) between $15.5M - $17.8M, securing a highly viable 3.2-year payback period validated by executive stakeholders.</p>
+              <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl border border-blue-100/50 dark:border-blue-800/50 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                <h4 class="text-sm font-bold text-blue-800 dark:text-blue-300 uppercase tracking-wider mb-2">Quantifiable ROI</h4>
+                <p class="text-slate-900 dark:text-white font-medium text-lg">Delivered an executive-ready business case modeling 3 financial implementation scenarios, projecting a Total Cost of Ownership (TCO) between $15.5M - $17.8M with a validated 3.2-year payback period.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all reveal cursor-pointer group accordion-toggle">
-          <div class="w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none">
-            <div>
-              <h3 class="text-xl font-bold mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Product Strategy Consultant</h3>
-              <p class="text-brand-600 dark:text-brand-400 font-medium">Johns Hopkins Hospital <span class="text-slate-400 dark:text-slate-500 font-normal ml-2">| Aug '25 - Oct '25</span></p>
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover-glow transition-all reveal group">
+          <button class="accordion-toggle w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none relative overflow-hidden rounded-3xl">
+            <div class="relative z-10">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider rounded-md">Capstone</span>
+                <p class="text-slate-500 font-medium text-sm">Aug 2025 - Oct 2025</p>
+              </div>
+              <h3 class="text-2xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Product Strategy Consultant - Operations</h3>
+              <p class="text-slate-600 dark:text-slate-400 font-medium">Johns Hopkins Hospital</p>
             </div>
-            <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full transform transition-transform duration-300 icon-wrapper">
-              <i data-feather="chevron-down" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+            <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-full transform transition-transform duration-300 icon-wrapper relative z-10 border border-slate-100 dark:border-slate-700">
+              <i data-feather="plus" class="w-5 h-5 text-slate-900 dark:text-white"></i>
             </div>
-          </div>
+          </button>
           
-          <div class="accordion-content px-6 md:px-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 rounded-b-2xl cursor-default">
-            <div class="py-6 space-y-6">
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Operational Analysis</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Diagnosed root causes of perioperative patient flow bottlenecks and PACU holds by interviewing 24 stakeholders and modeling 90 days of operational datasets using Tableau.</p>
+          <div class="accordion-content px-6 md:px-8 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-slate-800/50 rounded-b-3xl">
+            <div class="py-8 space-y-8">
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2"><i data-feather="target" class="w-4 h-4"></i> The Directive</h4>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Systemic inefficiencies were driving prolonged perioperative patient flow bottlenecks and severe Post-Anesthesia Care Unit (PACU) holds, negatively impacting resource utilization and patient care velocity.</p>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2"><i data-feather="activity" class="w-4 h-4"></i> Strategic Execution</h4>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Spearheaded an extensive operational audit, utilizing Tableau to model 90 days of EHR data. Conducted 24 stakeholder interviews to map complex user journeys for frontline staff, diagnosing root causes of manual documentation delays.</p>
+                </div>
               </div>
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Technical Prototyping</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Mapped user journeys for frontline nurses to define technical data flows. Designed a prototype for an NFC-based patient tracking system with API requirements for Epic EHR integration to automate transfer logging.</p>
-              </div>
-              <div class="bg-brand-50 dark:bg-brand-900/20 p-5 rounded-xl border border-brand-100 dark:border-brand-800 shadow-inner">
-                <h4 class="text-sm font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider mb-2">Strategic Recommendations</h4>
-                <p class="text-slate-900 dark:text-white font-medium">Presented a phased implementation roadmap to the Director of Nursing featuring 3 targeted interventions (NFC tracking, Shift Restructuring, Bed Dashboards) to drastically reduce wait times and improve surgical throughput.</p>
+              <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl border border-blue-100/50 dark:border-blue-800/50">
+                <h4 class="text-sm font-bold text-blue-800 dark:text-blue-300 uppercase tracking-wider mb-2">The Solution & Impact</h4>
+                <p class="text-slate-900 dark:text-white font-medium text-lg">Designed a comprehensive product prototype for an NFC-based patient tracking system integrated directly into the Epic EHR. Presented an actionable, 3-phase strategic roadmap to the Director of Nursing to automate timestamp logging and restructure overlap shifts.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all reveal cursor-pointer group accordion-toggle">
-          <div class="w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none">
-            <div>
-              <h3 class="text-xl font-bold mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Software Engineer & Tech Lead</h3>
-              <p class="text-brand-600 dark:text-brand-400 font-medium">Persistent Systems Limited <span class="text-slate-400 dark:text-slate-500 font-normal ml-2">| Sep '23 - Jul '25</span></p>
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover-glow transition-all reveal group">
+          <button class="accordion-toggle w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none relative overflow-hidden rounded-3xl">
+            <div class="relative z-10">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-md">Full Time</span>
+                <p class="text-slate-500 font-medium text-sm">Sep 2023 - Jul 2025</p>
+              </div>
+              <h3 class="text-2xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Software Engineer - Cloud & Infrastructure</h3>
+              <p class="text-slate-600 dark:text-slate-400 font-medium">Persistent Systems Limited</p>
             </div>
-            <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full transform transition-transform duration-300 icon-wrapper">
-              <i data-feather="chevron-down" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+            <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-full transform transition-transform duration-300 icon-wrapper relative z-10 border border-slate-100 dark:border-slate-700">
+              <i data-feather="plus" class="w-5 h-5 text-slate-900 dark:text-white"></i>
+            </div>
+          </button>
+          
+          <div class="accordion-content px-6 md:px-8 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-slate-800/50 rounded-b-3xl">
+            <div class="py-8 space-y-8">
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2"><i data-feather="target" class="w-4 h-4"></i> The Directive</h4>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">A legacy Multi-Cloud SaaS product was suffering from slow deployment cycles, manual provisioning bottlenecks, and high database query latency affecting tens of thousands of active users.</p>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2"><i data-feather="activity" class="w-4 h-4"></i> Strategic Execution</h4>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Acted as the technical bridge between Product Management and DevOps. Translated business requirements into scalable technical specifications. Engineered automated CI/CD pipelines using Docker and Kubernetes, and implemented Terraform for seamless tenant onboarding.</p>
+                </div>
+              </div>
+              <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl border border-blue-100/50 dark:border-blue-800/50">
+                <h4 class="text-sm font-bold text-blue-800 dark:text-blue-300 uppercase tracking-wider mb-2">Quantifiable Impact</h4>
+                <p class="text-slate-900 dark:text-white font-medium text-lg">Successfully reduced infrastructure deployment time by 67% and manual interventions by 43%. Refactored critical SQL queries and caching mechanisms, resulting in a 47% reduction in query latency for a user base of 10,000+.</p>
+              </div>
             </div>
           </div>
-          
-          <div class="accordion-content px-6 md:px-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 rounded-b-2xl cursor-default">
-            <div class="py-6 space-y-6">
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Cloud Infrastructure Leadership</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Engineered scalable CI/CD pipelines utilizing Docker and Kubernetes for a Multi-Cloud SaaS product. Automated infrastructure provisioning using Terraform to streamline tenant onboarding.</p>
-              </div>
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Product Alignment & Compliance</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Led enterprise compliance projects coordinating security teams to achieve FIPS/FedRAMP certification, enabling a $5M+ sales pipeline. Translated business requirements into technical specs for 10,000+ users.</p>
-              </div>
-              <div class="bg-brand-50 dark:bg-brand-900/20 p-5 rounded-xl border border-brand-100 dark:border-brand-800 shadow-inner">
-                <h4 class="text-sm font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider mb-2">Quantifiable Impact</h4>
-                <p class="text-slate-900 dark:text-white font-medium">Reduced deployment time by 67%, optimized SQL queries achieving a 47% reduction in latency, and led self-service provisioning features that reduced manual support ticket volume by 15%.</p>
-              </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="py-24 bg-slate-100/50 dark:bg-slate-950/30 border-t border-slate-200/50 dark:border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-16 reveal">
+        <h2 class="text-3xl font-extrabold mb-4">Technical Product Portfolio</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-lg">End-to-end development of data-driven products, from market validation to deployment.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col reveal">
+          <div class="flex justify-between items-start mb-6">
+            <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+              <i data-feather="bar-chart-2" class="text-blue-600 dark:text-blue-400 w-5 h-5"></i>
             </div>
+            <a href="#" class="text-slate-400 hover:text-blue-600 transition-colors"><i data-feather="external-link" class="w-5 h-5"></i></a>
+          </div>
+          <h3 class="text-xl font-bold mb-3">AI-Powered Traffic Analytics Platform</h3>
+          <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Directed discovery workshops with city planners to define ML use cases. Built and deployed TensorFlow/OpenCV models (95% accuracy) on AWS Lambda, effectively reducing live-dashboard latency by 40%.</p>
+          <div class="flex flex-wrap gap-2 mt-auto">
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">TensorFlow</span>
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">AWS Lambda</span>
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">Product Discovery</span>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col reveal">
+          <div class="flex justify-between items-start mb-6">
+            <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+              <i data-feather="shopping-cart" class="text-blue-600 dark:text-blue-400 w-5 h-5"></i>
+            </div>
+            <a href="#" class="text-slate-400 hover:text-blue-600 transition-colors"><i data-feather="external-link" class="w-5 h-5"></i></a>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Agri-Tech Marketplace Platform</h3>
+          <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Conducted primary research with 50+ focus groups to validate GTM strategy. Architected a highly available marketplace using Golang and React, driving a 40% increase in product adoption post-launch.</p>
+          <div class="flex flex-wrap gap-2 mt-auto">
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">Golang</span>
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">ReactJs</span>
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">User Research</span>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col reveal">
+          <div class="flex justify-between items-start mb-6">
+            <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+              <i data-feather="heart" class="text-blue-600 dark:text-blue-400 w-5 h-5"></i>
+            </div>
+            <a href="#" class="text-slate-400 hover:text-blue-600 transition-colors"><i data-feather="external-link" class="w-5 h-5"></i></a>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Healthcare Resource Management</h3>
+          <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Managed requirements gathering across 50+ facilities to ensure HIPAA compliance. Designed an EHR-integrated prototype that improved operational throughput by 20%, securing enterprise-wide adoption.</p>
+          <div class="flex flex-wrap gap-2 mt-auto">
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">EHR Integration</span>
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">AWS CloudWatch</span>
+            <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-md">Compliance</span>
           </div>
         </div>
 
@@ -290,11 +351,17 @@
   </section>
 
   <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <p>© 2026 Sanket Navale.</p>
-      <div class="flex gap-4">
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+        <p class="text-slate-300 font-medium">© 2026 Sanket Navale. Architected for Scale.</p>
+      </div>
+      <div class="flex gap-6">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-white hover:scale-110 transition-all">
           <i data-feather="linkedin" class="w-5 h-5"></i>
+        </a>
+        <a href="mailto:snavale1@jh.edu" class="hover:text-white hover:scale-110 transition-all">
+          <i data-feather="mail" class="w-5 h-5"></i>
         </a>
       </div>
     </div>
@@ -303,7 +370,7 @@
   <script>
     feather.replace();
 
-    // Dark Mode Toggle
+    // Dark Mode Logic
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     
@@ -328,34 +395,36 @@
         feather.replace();
     });
 
-    // Accordions
+    // Accordion Logic (Modified to change plus to minus)
     const accordions = document.querySelectorAll('.accordion-toggle');
     accordions.forEach(button => {
       button.addEventListener('click', () => {
         const content = button.nextElementSibling;
-        const icon = button.querySelector('.icon-wrapper');
+        const icon = button.querySelector('svg'); // Target the feather icon directly
         
         accordions.forEach(otherBtn => {
             if (otherBtn !== button) {
                 otherBtn.nextElementSibling.style.maxHeight = null;
                 otherBtn.nextElementSibling.classList.remove('expanded');
-                otherBtn.querySelector('.icon-wrapper').style.transform = 'rotate(0deg)';
+                let otherIcon = otherBtn.querySelector('svg');
+                otherIcon.outerHTML = '<i data-feather="plus" class="w-5 h-5 text-slate-900 dark:text-white"></i>';
             }
         });
 
         if (content.style.maxHeight) {
           content.style.maxHeight = null;
           content.classList.remove('expanded');
-          icon.style.transform = 'rotate(0deg)';
+          icon.outerHTML = '<i data-feather="plus" class="w-5 h-5 text-slate-900 dark:text-white"></i>';
         } else {
           content.style.maxHeight = content.scrollHeight + "px";
           content.classList.add('expanded');
-          icon.style.transform = 'rotate(180deg)';
+          icon.outerHTML = '<i data-feather="minus" class="w-5 h-5 text-slate-900 dark:text-white"></i>';
         }
+        feather.replace(); // Re-render icon
       });
     });
 
-    // Scroll Animation
+    // Scroll Reveal Animations
     const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -364,9 +433,9 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { root: null, threshold: 0.15 });
-
+    }, { root: null, threshold: 0.1 });
     revealElements.forEach(el => revealObserver.observe(el));
+
   </script>
 </body>
 </html>
