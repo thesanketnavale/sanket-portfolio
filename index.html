@@ -38,7 +38,7 @@
     .dark ::-webkit-scrollbar-thumb:hover { background: #555; }
 
     /* Scroll Reveal Animations */
-    .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
 
     /* Gradient Text */
@@ -52,9 +52,39 @@
       background-image: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 100%);
     }
 
-    /* Adaptive Mouse Glow Effect on Cards */
-    #glow-container:hover > .glow-card::after, #projects-glow:hover > .glow-card::after { opacity: 1; }
-    
+    /* Adaptive Mouse Glow Effect on Cards - Disabled on Mobile for Performance */
+    @media (min-width: 768px) {
+      #glow-container:hover > .glow-card::after, #projects-glow:hover > .glow-card::after { opacity: 1; }
+      
+      .glow-card::before, .glow-card::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        border-radius: inherit;
+        transition: opacity 500ms ease;
+        pointer-events: none;
+      }
+      
+      .glow-card::before {
+        background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 0, 0, 0.04), transparent 40%);
+        z-index: 3; opacity: 0;
+      }
+      .glow-card::after {  
+        background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(14, 165, 233, 0.15), transparent 40%);
+        z-index: 1; opacity: 0;
+      }
+      
+      .dark .glow-card::before {
+        background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+      }
+      .dark .glow-card::after {  
+        background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.4), transparent 40%);
+      }
+
+      .glow-card:hover::before { opacity: 1; }
+    }
+
+    /* Card Structural CSS */
     .glow-card {
       background-color: rgba(0, 0, 0, 0.03);
       border: 1px solid rgba(0, 0, 0, 0.05);
@@ -65,36 +95,6 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
-    .glow-card::before, .glow-card::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      border-radius: inherit;
-      transition: opacity 500ms ease;
-      pointer-events: none;
-    }
-    
-    /* Light Mode Glows */
-    .glow-card::before {
-      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 0, 0, 0.04), transparent 40%);
-      z-index: 3; opacity: 0;
-    }
-    .glow-card::after {  
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(14, 165, 233, 0.15), transparent 40%);
-      z-index: 1; opacity: 0;
-    }
-    
-    /* Dark Mode Glows */
-    .dark .glow-card::before {
-      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
-    }
-    .dark .glow-card::after {  
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(56, 189, 248, 0.4), transparent 40%);
-    }
-
-    .glow-card:hover::before { opacity: 1; }
-    
-    /* Card Inner Background */
     .glow-card > .card-content {
       background-color: #ffffff;
       border-radius: inherit;
@@ -110,73 +110,75 @@
 <body class="bg-slate-50 text-slate-900 dark:bg-dark dark:text-slate-300 font-sans antialiased transition-colors duration-300 selection:bg-brand-500/30 selection:text-brand-900 dark:selection:text-white overflow-x-hidden">
 
   <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-    <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-brand-400/20 dark:bg-brand-600/10 blur-[120px] rounded-full mix-blend-multiply dark:mix-blend-screen transition-all duration-300"></div>
-    <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-indigo-400/20 dark:bg-indigo-600/10 blur-[120px] rounded-full mix-blend-multiply dark:mix-blend-screen transition-all duration-300"></div>
+    <div class="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] md:w-[50%] md:h-[50%] bg-brand-400/20 dark:bg-brand-600/10 blur-[120px] rounded-full mix-blend-multiply dark:mix-blend-screen transition-all duration-300"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] md:w-[50%] md:h-[50%] bg-indigo-400/20 dark:bg-indigo-600/10 blur-[120px] rounded-full mix-blend-multiply dark:mix-blend-screen transition-all duration-300"></div>
   </div>
 
-  <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-    <nav class="bg-white/70 dark:bg-white/5 backdrop-blur-lg border border-slate-200 dark:border-white/10 px-6 py-3 rounded-full shadow-lg dark:shadow-2xl flex gap-4 md:gap-6 items-center transition-colors duration-300">
-      <a href="#home" class="text-slate-900 dark:text-white font-display font-bold tracking-tight mr-2 md:mr-4">SN.</a>
-      <a href="#about" class="hidden md:block text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">About</a>
-      <a href="#experience" class="hidden md:block text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">Experience</a>
-      <a href="#projects" class="hidden md:block text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">Projects</a>
+  <div class="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 w-full">
+    <nav class="bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 px-5 py-3 rounded-full shadow-lg dark:shadow-2xl flex gap-3 md:gap-6 items-center transition-colors duration-300 w-full max-w-max">
+      <a href="#home" class="text-slate-900 dark:text-white font-display font-bold tracking-tight text-lg mr-1 md:mr-2 shrink-0">SN.</a>
       
-      <div class="w-px h-4 bg-slate-300 dark:bg-white/20 mx-1 md:mx-2"></div>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#about" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">About</a>
+        <a href="#experience" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">Experience</a>
+        <a href="#projects" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">Projects</a>
+        <div class="w-px h-4 bg-slate-300 dark:bg-white/20 mx-1"></div>
+      </div>
       
-      <button id="theme-toggle" class="p-1.5 md:p-2 rounded-full bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-white/20 transition-colors focus:outline-none">
-        <i data-feather="moon" id="theme-icon" class="w-3.5 h-3.5 md:w-4 md:h-4"></i>
+      <button id="theme-toggle" class="p-2 rounded-full bg-slate-200/50 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-white/20 transition-colors focus:outline-none shrink-0">
+        <i data-feather="moon" id="theme-icon" class="w-4 h-4"></i>
       </button>
 
       <a href="mailto:snavale1@jh.edu?subject=Requesting%20Full%20Resume" 
-         class="flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-black px-4 py-1.5 rounded-full text-xs font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-all shadow-md">
-        <i data-feather="lock" class="w-3 h-3"></i> Request Resume
+         class="flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-black px-4 py-2 rounded-full text-xs font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-all shadow-md shrink-0">
+        <i data-feather="lock" class="w-3 h-3"></i> <span class="hidden sm:inline">Request Resume</span><span class="sm:hidden">Resume</span>
       </a>
     </nav>
   </div>
 
-  <div class="relative z-10 max-w-5xl mx-auto px-6">
+  <div class="relative z-10 max-w-5xl mx-auto px-5 md:px-8">
     
-    <header id="home" class="min-h-screen flex flex-col justify-center pt-20 reveal">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-200/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 w-max mb-8 transition-colors">
-        <span class="relative flex h-2 w-2">
+    <header id="home" class="min-h-[100dvh] flex flex-col justify-center pt-20 pb-10 reveal">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-200/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 w-max mb-6 md:mb-8 transition-colors">
+        <span class="relative flex h-2 w-2 shrink-0">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600 dark:bg-brand-500"></span>
         </span>
-        <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Targeting Co-Op & Internships Summer/Fall 2026</span>
+        <span class="text-[10px] md:text-xs font-semibold text-slate-700 dark:text-slate-300 tracking-wide uppercase">Targeting Summer/Fall 2026 Co-Op</span>
       </div>
       
-      <h1 class="font-display text-5xl md:text-8xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.1] transition-colors">
-        Bridging Engineering & <br class="hidden md:block" />
+      <h1 class="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.15] transition-colors text-left">
+        Bridging Engineering & <br class="hidden sm:block" />
         <span class="text-gradient">AI Product Strategy.</span>
       </h1>
       
-      <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed mb-10 transition-colors">
+      <p class="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed mb-8 md:mb-10 transition-colors text-left">
         I engineer scalable infrastructure and design unified AI governance frameworks to translate complex data into high-ROI business outcomes.
       </p>
 
-      <div class="flex items-center gap-4">
+      <div class="flex flex-wrap items-center gap-4">
         <a href="#experience" class="bg-slate-900 dark:bg-white text-white dark:text-black px-6 py-3 rounded-xl font-medium text-sm hover:scale-105 transition-transform flex items-center gap-2 shadow-lg">
           Explore Case Studies <i data-feather="arrow-right" class="w-4 h-4"></i>
         </a>
-        <a href="https://linkedin.com" target="_blank" class="p-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl hover:bg-slate-50 dark:hover:bg-white/10 transition-colors text-slate-700 dark:text-white shadow-sm">
+        <a href="https://www.linkedin.com/in/sanketnavale1436/" target="_blank" class="p-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl hover:bg-slate-50 dark:hover:bg-white/10 transition-colors text-slate-700 dark:text-white shadow-sm flex items-center justify-center">
           <i data-feather="linkedin" class="w-5 h-5"></i>
         </a>
       </div>
     </header>
 
-    <section id="about" class="py-24 border-t border-slate-200 dark:border-white/10 reveal transition-colors">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10 transition-colors"><span class="text-brand-600 dark:text-brand-500">/</span> About & Arsenal</h2>
+    <section id="about" class="py-20 md:py-24 border-t border-slate-200 dark:border-white/10 reveal transition-colors">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-10 md:mb-12 transition-colors"><span class="text-brand-600 dark:text-brand-500">/</span> About & Arsenal</h2>
       
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" id="glow-container">
         
         <div class="lg:col-span-2 glow-card rounded-3xl p-px min-h-[300px]">
-          <div class="card-content p-8 flex flex-col md:flex-row gap-8 items-center h-full">
-            <div class="w-32 h-32 md:w-48 md:h-48 shrink-0 rounded-full overflow-hidden border-4 border-slate-100 dark:border-white/10 bg-slate-200 dark:bg-surface flex items-center justify-center transition-colors">
+          <div class="card-content p-6 md:p-10 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start text-center md:text-left h-full">
+            <div class="w-32 h-32 md:w-40 md:h-40 shrink-0 rounded-full overflow-hidden border-4 border-slate-100 dark:border-white/10 bg-slate-200 dark:bg-surface flex items-center justify-center transition-colors">
                <img src="Sanket's Photo.png" alt="Sanket Sachin Navale" class="w-full h-full object-cover" onerror="this.style.display='none'">
                <i data-feather="camera" class="w-8 h-8 text-slate-400 dark:text-slate-600 absolute -z-10"></i>
             </div>
-            <div>
-              <h3 class="font-display text-2xl text-slate-900 dark:text-white font-bold mb-3 transition-colors">From Engineer to Strategist.</h3>
+            <div class="flex flex-col justify-center h-full">
+              <h3 class="font-display text-xl md:text-2xl text-slate-900 dark:text-white font-bold mb-3 transition-colors">From Engineer to Strategist.</h3>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4 transition-colors">
                 I spent two years building resilient cloud infrastructure and CI/CD pipelines before realizing my passion lied in defining the *why* behind the products. 
               </p>
@@ -188,28 +190,28 @@
         </div>
 
         <div class="glow-card rounded-3xl p-px">
-          <div class="card-content p-8 flex flex-col justify-center h-full">
+          <div class="card-content p-6 md:p-8 flex flex-col justify-center text-left h-full">
             <i data-feather="book-open" class="w-6 h-6 text-brand-600 dark:text-brand-400 mb-4"></i>
-            <h3 class="font-display text-xl text-slate-900 dark:text-white font-bold mb-2 transition-colors">Education</h3>
-            <div class="mb-4">
-              <p class="text-sm text-slate-800 dark:text-slate-300 font-semibold transition-colors">M.S. Engineering Mgmt.</p>
-              <p class="text-xs text-slate-500 dark:text-slate-500">Johns Hopkins University (Dec 2026)</p>
+            <h3 class="font-display text-xl text-slate-900 dark:text-white font-bold mb-4 transition-colors">Education</h3>
+            <div class="mb-5">
+              <p class="text-sm text-slate-900 dark:text-slate-200 font-semibold transition-colors">M.S. Engineering Mgmt.</p>
+              <p class="text-xs text-slate-500 mt-1">Johns Hopkins University (Dec 2026)</p>
             </div>
             <div>
-              <p class="text-sm text-slate-800 dark:text-slate-300 font-semibold transition-colors">B.S. Information Technology</p>
-              <p class="text-xs text-slate-500 dark:text-slate-500">Walchand Institute (3.74 GPA)</p>
+              <p class="text-sm text-slate-900 dark:text-slate-200 font-semibold transition-colors">B.S. Information Technology</p>
+              <p class="text-xs text-slate-500 mt-1">Walchand Institute (3.74 GPA)</p>
             </div>
           </div>
         </div>
 
-        <div class="lg:col-span-3 glow-card rounded-3xl p-px mt-2">
-          <div class="card-content p-8">
+        <div class="lg:col-span-3 glow-card rounded-3xl p-px lg:mt-2">
+          <div class="card-content p-6 md:p-10 text-left">
             <p class="text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500 font-bold mb-8 transition-colors">Comprehensive Capabilities</p>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-6">
               
               <div>
-                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-4 flex items-center gap-2 transition-colors"><i data-feather="target" class="w-4 h-4 text-brand-500"></i> AI & Machine Learning</h4>
+                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-3 flex items-center gap-2 transition-colors"><i data-feather="target" class="w-4 h-4 text-brand-500"></i> AI & Machine Learning</h4>
                 <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 transition-colors">
                   <li>Generative AI & RAG</li>
                   <li>Agentic Workflows</li>
@@ -219,7 +221,7 @@
               </div>
 
               <div>
-                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-4 flex items-center gap-2 transition-colors"><i data-feather="compass" class="w-4 h-4 text-brand-500"></i> Product Strategy</h4>
+                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-3 flex items-center gap-2 transition-colors"><i data-feather="compass" class="w-4 h-4 text-brand-500"></i> Product Strategy</h4>
                 <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 transition-colors">
                   <li>Product Discovery & Roadmaps</li>
                   <li>ROI & Financial Modeling</li>
@@ -229,7 +231,7 @@
               </div>
 
               <div>
-                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-4 flex items-center gap-2 transition-colors"><i data-feather="pie-chart" class="w-4 h-4 text-brand-500"></i> Consulting & Analysis</h4>
+                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-3 flex items-center gap-2 transition-colors"><i data-feather="pie-chart" class="w-4 h-4 text-brand-500"></i> Consulting & Analysis</h4>
                 <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 transition-colors">
                   <li>Structured Problem-Solving</li>
                   <li>Competitive Market Analysis</li>
@@ -239,7 +241,7 @@
               </div>
 
               <div>
-                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-4 flex items-center gap-2 transition-colors"><i data-feather="cloud" class="w-4 h-4 text-brand-500"></i> Cloud & DevOps</h4>
+                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-3 flex items-center gap-2 transition-colors"><i data-feather="cloud" class="w-4 h-4 text-brand-500"></i> Cloud & DevOps</h4>
                 <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 transition-colors">
                   <li>AWS, Azure, GCP, IBM Cloud</li>
                   <li>Docker & Kubernetes</li>
@@ -249,7 +251,7 @@
               </div>
 
               <div>
-                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-4 flex items-center gap-2 transition-colors"><i data-feather="terminal" class="w-4 h-4 text-brand-500"></i> Core Engineering</h4>
+                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-3 flex items-center gap-2 transition-colors"><i data-feather="terminal" class="w-4 h-4 text-brand-500"></i> Core Engineering</h4>
                 <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 transition-colors">
                   <li>Golang & Python</li>
                   <li>JavaScript / React</li>
@@ -259,7 +261,7 @@
               </div>
 
               <div>
-                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-4 flex items-center gap-2 transition-colors"><i data-feather="users" class="w-4 h-4 text-brand-500"></i> Program Management</h4>
+                <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-3 flex items-center gap-2 transition-colors"><i data-feather="users" class="w-4 h-4 text-brand-500"></i> Program Management</h4>
                 <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 transition-colors">
                   <li>Cross-Functional Leadership</li>
                   <li>Budget & Cost Tracking</li>
@@ -275,20 +277,20 @@
       </div>
     </section>
 
-    <section id="experience" class="py-24 border-t border-slate-200 dark:border-white/10 transition-colors">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-16 reveal transition-colors"><span class="text-brand-600 dark:text-brand-500">/</span> Case Studies</h2>
+    <section id="experience" class="py-20 md:py-24 border-t border-slate-200 dark:border-white/10 transition-colors">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-10 md:mb-16 reveal transition-colors"><span class="text-brand-600 dark:text-brand-500">/</span> Case Studies</h2>
       
-      <div class="space-y-24">
+      <div class="space-y-16 md:space-y-24">
         
-        <div class="flex flex-col md:flex-row gap-8 reveal">
-          <div class="md:w-1/3">
-            <div class="sticky top-32">
-              <p class="text-xs text-brand-600 dark:text-brand-400 font-bold tracking-wider uppercase mb-2 transition-colors">Oct 2025 - Jan 2026</p>
-              <h3 class="font-display text-2xl text-slate-900 dark:text-white font-bold mb-1 transition-colors">Amazon Web Services</h3>
+        <div class="flex flex-col md:flex-row gap-4 md:gap-10 reveal">
+          <div class="md:w-1/3 shrink-0">
+            <div class="md:sticky md:top-32 text-left">
+              <p class="text-[10px] md:text-xs text-brand-600 dark:text-brand-400 font-bold tracking-wider uppercase mb-2 transition-colors">Oct 2025 - Jan 2026</p>
+              <h3 class="font-display text-xl md:text-2xl text-slate-900 dark:text-white font-bold mb-1 transition-colors">Amazon Web Services</h3>
               <p class="text-sm text-slate-600 dark:text-slate-400 transition-colors">Product Strategy Consultant</p>
             </div>
           </div>
-          <div class="md:w-2/3 space-y-8 bg-white dark:bg-surface border border-slate-200 dark:border-white/5 p-8 rounded-3xl shadow-xl dark:shadow-2xl transition-colors">
+          <div class="md:w-2/3 space-y-6 md:space-y-8 bg-white dark:bg-surface border border-slate-200 dark:border-white/5 p-6 md:p-8 rounded-3xl shadow-xl dark:shadow-2xl transition-colors text-left">
             <div>
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-2 flex items-center gap-2 transition-colors"><i data-feather="target" class="w-4 h-4 text-brand-500 dark:text-brand-400"></i> The Discovery</h4>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">Identified 7 critical market gaps (including Shadow AI and Multi-Agent failures) within the AI governance sector by conducting 8 expert interviews and evaluating competitors against Gartner Magic Quadrant criteria.</p>
@@ -297,22 +299,22 @@
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-2 flex items-center gap-2 transition-colors"><i data-feather="layers" class="w-4 h-4 text-brand-500 dark:text-brand-400"></i> The Architecture</h4>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">Authored a comprehensive framework on Agentic AI governance, proposing a 3-layer mitigation strategy (Real-time Monitoring, Tiered Access, Machine-Readable Policies) to validate scalable frameworks for regulated industries.</p>
             </div>
-            <div class="p-5 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10 transition-colors">
+            <div class="p-4 md:p-5 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10 transition-colors">
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-1 transition-colors">Business ROI</h4>
               <p class="text-sm text-slate-700 dark:text-slate-300 transition-colors">Delivered a compelling business case by modeling financial scenarios, estimating a TCO between $15.5M - $17.8M, securing a highly viable 3.2-year payback period.</p>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-8 reveal">
-          <div class="md:w-1/3">
-            <div class="sticky top-32">
-              <p class="text-xs text-brand-600 dark:text-brand-400 font-bold tracking-wider uppercase mb-2 transition-colors">Aug 2025 - Oct 2025</p>
-              <h3 class="font-display text-2xl text-slate-900 dark:text-white font-bold mb-1 transition-colors">Johns Hopkins Hospital</h3>
+        <div class="flex flex-col md:flex-row gap-4 md:gap-10 reveal">
+          <div class="md:w-1/3 shrink-0">
+            <div class="md:sticky md:top-32 text-left">
+              <p class="text-[10px] md:text-xs text-brand-600 dark:text-brand-400 font-bold tracking-wider uppercase mb-2 transition-colors">Aug 2025 - Oct 2025</p>
+              <h3 class="font-display text-xl md:text-2xl text-slate-900 dark:text-white font-bold mb-1 transition-colors">Johns Hopkins Hospital</h3>
               <p class="text-sm text-slate-600 dark:text-slate-400 transition-colors">Product Strategy Consultant</p>
             </div>
           </div>
-          <div class="md:w-2/3 space-y-8 bg-white dark:bg-surface border border-slate-200 dark:border-white/5 p-8 rounded-3xl shadow-xl dark:shadow-2xl transition-colors">
+          <div class="md:w-2/3 space-y-6 md:space-y-8 bg-white dark:bg-surface border border-slate-200 dark:border-white/5 p-6 md:p-8 rounded-3xl shadow-xl dark:shadow-2xl transition-colors text-left">
             <div>
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-2 flex items-center gap-2 transition-colors"><i data-feather="activity" class="w-4 h-4 text-brand-500 dark:text-brand-400"></i> Operational Analysis</h4>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">Diagnosed root causes of perioperative patient flow bottlenecks and PACU holds by interviewing 24 stakeholders and modeling 90 days of operational datasets using Tableau.</p>
@@ -321,22 +323,22 @@
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-2 flex items-center gap-2 transition-colors"><i data-feather="cpu" class="w-4 h-4 text-brand-500 dark:text-brand-400"></i> Technical Prototyping</h4>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">Mapped user journeys for frontline nurses to define technical data flows. Designed a prototype for an NFC-based patient tracking system with API requirements for Epic EHR integration to automate transfer logging.</p>
             </div>
-            <div class="p-5 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10 transition-colors">
+            <div class="p-4 md:p-5 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10 transition-colors">
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-1 transition-colors">Strategic Interventions</h4>
               <p class="text-sm text-slate-700 dark:text-slate-300 transition-colors">Presented a phased implementation roadmap featuring 3 targeted interventions (NFC tracking, Shift Restructuring, Bed Dashboards) to drastically reduce wait times.</p>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-8 reveal">
-          <div class="md:w-1/3">
-            <div class="sticky top-32">
-              <p class="text-xs text-brand-600 dark:text-brand-400 font-bold tracking-wider uppercase mb-2 transition-colors">Sep 2023 - Jul 2025</p>
-              <h3 class="font-display text-2xl text-slate-900 dark:text-white font-bold mb-1 transition-colors">Persistent Systems</h3>
+        <div class="flex flex-col md:flex-row gap-4 md:gap-10 reveal">
+          <div class="md:w-1/3 shrink-0">
+            <div class="md:sticky md:top-32 text-left">
+              <p class="text-[10px] md:text-xs text-brand-600 dark:text-brand-400 font-bold tracking-wider uppercase mb-2 transition-colors">Sep 2023 - Jul 2025</p>
+              <h3 class="font-display text-xl md:text-2xl text-slate-900 dark:text-white font-bold mb-1 transition-colors">Persistent Systems</h3>
               <p class="text-sm text-slate-600 dark:text-slate-400 transition-colors">Software Engineer & Tech Lead</p>
             </div>
           </div>
-          <div class="md:w-2/3 space-y-8 bg-white dark:bg-surface border border-slate-200 dark:border-white/5 p-8 rounded-3xl shadow-xl dark:shadow-2xl transition-colors">
+          <div class="md:w-2/3 space-y-6 md:space-y-8 bg-white dark:bg-surface border border-slate-200 dark:border-white/5 p-6 md:p-8 rounded-3xl shadow-xl dark:shadow-2xl transition-colors text-left">
             <div>
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-2 flex items-center gap-2 transition-colors"><i data-feather="cloud" class="w-4 h-4 text-brand-500 dark:text-brand-400"></i> Cloud Leadership</h4>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">Engineered scalable CI/CD pipelines utilizing Docker and Kubernetes for a Multi-Cloud SaaS product. Automated infrastructure provisioning using Terraform to streamline tenant onboarding.</p>
@@ -345,7 +347,7 @@
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-2 flex items-center gap-2 transition-colors"><i data-feather="shield" class="w-4 h-4 text-brand-500 dark:text-brand-400"></i> Compliance & Alignment</h4>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">Led enterprise compliance projects coordinating security teams to achieve FIPS/FedRAMP certification, enabling a $5M+ sales pipeline.</p>
             </div>
-            <div class="p-5 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10 transition-colors">
+            <div class="p-4 md:p-5 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10 transition-colors">
               <h4 class="text-slate-900 dark:text-white text-sm font-bold mb-1 transition-colors">Quantifiable Impact</h4>
               <p class="text-sm text-slate-700 dark:text-slate-300 transition-colors">Reduced deployment time by 67%, optimized SQL queries achieving a 47% reduction in latency, and reduced manual support ticket volume by 15%.</p>
             </div>
@@ -355,32 +357,44 @@
       </div>
     </section>
 
-    <section id="projects" class="py-24 border-t border-slate-200 dark:border-white/10 mb-20 reveal transition-colors">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10 transition-colors"><span class="text-brand-600 dark:text-brand-500">/</span> Technical Builds</h2>
+    <section id="projects" class="py-20 md:py-24 border-t border-slate-200 dark:border-white/10 mb-10 md:mb-20 reveal transition-colors">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-10 md:mb-12 transition-colors"><span class="text-brand-600 dark:text-brand-500">/</span> Technical Builds</h2>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-glow">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-glow">
         
-        <div class="glow-card rounded-3xl p-px">
-          <div class="card-content p-8 flex flex-col h-full">
-            <h3 class="font-display text-xl text-slate-900 dark:text-white font-bold mb-2 transition-colors">AI-Powered Traffic Analytics</h3>
-            <p class="text-sm text-slate-500 mb-6 font-mono">Sep 2022 - Mar 2023</p>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow transition-colors">Built TensorFlow and OpenCV models achieving 95% accuracy, deploying via AWS Lambda to reduce latency by 40% for a live insights dashboard.</p>
-            <div class="flex gap-2 flex-wrap">
-              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs rounded-full transition-colors">TensorFlow</span>
-              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs rounded-full transition-colors">AWS Lambda</span>
+        <div class="glow-card rounded-3xl p-px h-full">
+          <div class="card-content p-6 md:p-8 flex flex-col h-full text-left">
+            <h3 class="font-display text-lg md:text-xl text-slate-900 dark:text-white font-bold mb-2 transition-colors">AI-Powered Traffic Analytics</h3>
+            <p class="text-xs md:text-sm text-slate-500 mb-4 md:mb-6 font-mono">Sep 2022 - Mar 2023</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 flex-grow transition-colors">Built TensorFlow and OpenCV models achieving 95% accuracy, deploying via AWS Lambda to reduce latency by 40% for a live insights dashboard.</p>
+            <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-slate-100 dark:border-white/5">
+              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-[10px] md:text-xs rounded-full transition-colors">TensorFlow</span>
+              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-[10px] md:text-xs rounded-full transition-colors">AWS Lambda</span>
             </div>
           </div>
         </div>
 
-        <div class="glow-card rounded-3xl p-px">
-          <div class="card-content p-8 flex flex-col h-full">
-            <h3 class="font-display text-xl text-slate-900 dark:text-white font-bold mb-2 transition-colors">Agriculture Equipment Marketplace</h3>
-            <p class="text-sm text-slate-500 mb-6 font-mono">Sep 2021 - Aug 2022</p>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow transition-colors">Developed an AI-ready marketplace using Golang microservices and ReactJs, automating infrastructure to accelerate release cycles by 70%.</p>
-            <div class="flex gap-2 flex-wrap">
-              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs rounded-full transition-colors">Golang</span>
-              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs rounded-full transition-colors">Docker</span>
-              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs rounded-full transition-colors">ReactJs</span>
+        <div class="glow-card rounded-3xl p-px h-full">
+          <div class="card-content p-6 md:p-8 flex flex-col h-full text-left">
+            <h3 class="font-display text-lg md:text-xl text-slate-900 dark:text-white font-bold mb-2 transition-colors">Agriculture Marketplace</h3>
+            <p class="text-xs md:text-sm text-slate-500 mb-4 md:mb-6 font-mono">Sep 2021 - Aug 2022</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 flex-grow transition-colors">Developed an AI-ready marketplace using Golang microservices and ReactJs, automating infrastructure to accelerate release cycles by 70%.</p>
+            <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-slate-100 dark:border-white/5">
+              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-[10px] md:text-xs rounded-full transition-colors">Golang</span>
+              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-[10px] md:text-xs rounded-full transition-colors">ReactJs</span>
+              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-[10px] md:text-xs rounded-full transition-colors">Docker</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glow-card rounded-3xl p-px h-full">
+          <div class="card-content p-6 md:p-8 flex flex-col h-full text-left">
+            <h3 class="font-display text-lg md:text-xl text-slate-900 dark:text-white font-bold mb-2 transition-colors">Healthcare Resource Mgmt.</h3>
+            <p class="text-xs md:text-sm text-slate-500 mb-4 md:mb-6 font-mono">Mar 2021 - Jun 2021</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 flex-grow transition-colors">Designed an EHR-integrated architecture with CloudWatch dashboards, successfully piloting a prototype that reduced patient delays by 15% and improved throughput by 20%.</p>
+            <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-slate-100 dark:border-white/5">
+              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-[10px] md:text-xs rounded-full transition-colors">CloudWatch</span>
+              <span class="px-3 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-[10px] md:text-xs rounded-full transition-colors">EHR Integration</span>
             </div>
           </div>
         </div>
@@ -388,9 +402,9 @@
       </div>
     </section>
 
-    <footer class="py-10 border-t border-slate-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 transition-colors">
-      <p class="text-sm text-slate-500">© 2026 Sanket Navale. Available for Fall 2026 Opportunities.</p>
-      <a href="mailto:snavale1@jh.edu" class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">snavale1@jh.edu</a>
+    <footer class="py-8 border-t border-slate-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 transition-colors">
+      <p class="text-xs md:text-sm text-slate-500 text-center md:text-left">© 2026 Sanket Navale. Available for Fall 2026 Opportunities.</p>
+      <a href="mailto:snavale1@jh.edu" class="text-xs md:text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">snavale1@jh.edu</a>
     </footer>
 
   </div>
@@ -410,21 +424,26 @@
     }, { root: null, threshold: 0.1 });
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Mouse Glow Effect Logic for Bento Grid & Projects
-    const handleOnMouseMove = e => {
-      const { currentTarget: target } = e;
-      const rect = target.getBoundingClientRect(),
-            x = e.clientX - rect.left,
-            y = e.clientY - rect.top;
-      
-      for(const card of target.getElementsByClassName("glow-card")) {
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
+    // Mouse Glow Effect Logic for Bento Grid & Projects (Only runs on desktop)
+    if (window.innerWidth >= 768) {
+      const handleOnMouseMove = e => {
+        const { currentTarget: target } = e;
+        const rect = target.getBoundingClientRect(),
+              x = e.clientX - rect.left,
+              y = e.clientY - rect.top;
+        
+        for(const card of target.getElementsByClassName("glow-card")) {
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        }
       }
+      
+      const glowContainer = document.getElementById("glow-container");
+      const projectsGlow = document.getElementById("projects-glow");
+      
+      if(glowContainer) glowContainer.onmousemove = e => handleOnMouseMove(e);
+      if(projectsGlow) projectsGlow.onmousemove = e => handleOnMouseMove(e);
     }
-    
-    document.getElementById("glow-container").onmousemove = e => handleOnMouseMove(e);
-    document.getElementById("projects-glow").onmousemove = e => handleOnMouseMove(e);
 
     // Dark Mode Toggle Logic
     const themeToggleBtn = document.getElementById('theme-toggle');
