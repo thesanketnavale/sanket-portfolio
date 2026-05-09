@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sanket Sachin Navale · AI Product & Engineering</title>
+<title>Sanket Navale — AI Product & Engineering</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -282,37 +282,36 @@ section{padding:100px 48px}
 #about{background:var(--surface-2)}
 .about-grid{
   max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1.6fr;gap:64px;align-items:center;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
 }
 .about-photo-wrap{
-  position:relative;display:flex;flex-direction:column;align-items:center;gap:20px;
+  position:relative;
 }
 .about-photo-frame{
-  width:200px;height:200px;border-radius:50%;overflow:hidden;
+  aspect-ratio:3/4;border-radius:24px;overflow:hidden;
   background:var(--surface-3);
-  position:relative;flex-shrink:0;
-  box-shadow:0 0 0 6px #fff,0 0 0 8px var(--surface-3),0 16px 48px rgba(10,10,15,.12);
+  position:relative;
+  box-shadow:0 24px 80px rgba(10,10,15,.1);
 }
 .about-photo-frame img{
   width:100%;height:100%;object-fit:cover;
   transition:transform .6s var(--ease-out);
 }
-.about-photo-frame:hover img{transform:scale(1.06)}
+.about-photo-frame:hover img{transform:scale(1.04)}
 .photo-placeholder{
   width:100%;height:100%;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:8px;
+  align-items:center;justify-content:center;gap:12px;
   color:var(--ink-3);
 }
 .photo-placeholder svg{opacity:.4}
-.about-info-cards{display:flex;flex-direction:column;gap:10px;width:100%;align-items:center}
 .about-card{
-  background:#fff;border-radius:12px;padding:12px 18px;
-  box-shadow:0 4px 16px rgba(10,10,15,.07);
-  border:1px solid var(--line);
-  width:fit-content;text-align:center;min-width:160px;
+  position:absolute;bottom:-20px;right:-20px;
+  background:#fff;border-radius:16px;padding:16px 20px;
+  box-shadow:0 8px 32px rgba(10,10,15,.12);
+  min-width:180px;
 }
-.about-card-label{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
-.about-card-value{font-family:var(--font-display);font-size:1.05rem;color:var(--ink)}
+.about-card-label{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.about-card-value{font-family:var(--font-display);font-size:1.25rem;color:var(--ink)}
 
 .about-content{padding-top:20px}
 .about-text{
@@ -331,7 +330,7 @@ section{padding:100px 48px}
 /* ─── SKILLS ──────────────────────────────────────────────────── */
 #skills{background:var(--surface)}
 .skills-outer{max-width:1100px;margin:0 auto}
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .skill-card{
   background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:32px;transition:border-color .3s,box-shadow .3s,transform .3s var(--ease-spring);
@@ -636,8 +635,8 @@ footer a:hover{color:#fff}
   .stats-strip{grid-template-columns:repeat(2,1fr)}
   section{padding:72px 24px}
   .about-grid{grid-template-columns:1fr;gap:40px}
-  .about-photo-wrap{max-width:320px;margin:0 auto}
-  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .about-photo-wrap{max-width:320px}
+  .skills-grid{grid-template-columns:1fr}
   .projects-grid{grid-template-columns:1fr}
   .exp-body-inner{grid-template-columns:1fr}
   .exp-impact{grid-column:1}
@@ -649,7 +648,6 @@ footer a:hover{color:#fff}
   .stats-strip{grid-template-columns:1fr}
   .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
   .stat:last-child{border-bottom:none}
-  .skills-grid{grid-template-columns:1fr}
 }
 
 /* ─── MARQUEE ─────────────────────────────────────────────────── */
@@ -716,7 +714,7 @@ footer a:hover{color:#fff}
       Available for Co-Op &amp; Internships · Summer 2026
     </div>
     <h1 class="hero-name">
-      Sanket<br><em>Navale.</em>
+      Sanket<br><em>Navale</em>
     </h1>
     <p class="hero-title">AI Product &amp; Engineering</p>
     <p class="hero-desc">
@@ -765,19 +763,14 @@ footer a:hover{color:#fff}
     <div class="about-photo-wrap reveal">
       <div class="about-photo-frame">
         <div class="photo-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span style="font-size:.8rem;color:var(--ink-3)">Add your photo</span>
         </div>
-        <img src="Sanket's Photo.png" alt="Sanket Navale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+        <img src="Sanket's Photo.png" alt="Sanket Navale" style="position:absolute;inset:0" onerror="this.style.display='none'">
       </div>
-      <div class="about-info-cards">
-        <div class="about-card">
-          <div class="about-card-label">Based in</div>
-          <div class="about-card-value">Baltimore, US</div>
-        </div>
-        <div class="about-card">
-          <div class="about-card-label">Open to</div>
-          <div class="about-card-value">Relocate Anywhere</div>
-        </div>
+      <div class="about-card">
+        <div class="about-card-label">Based in</div>
+        <div class="about-card-value">Baltimore, US</div>
       </div>
     </div>
 
@@ -785,10 +778,10 @@ footer a:hover{color:#fff}
       <div class="section-eyebrow reveal">About Me</div>
       <h2 class="section-heading reveal">Engineer who<br>thinks like a <em>founder.</em></h2>
       <p class="about-text reveal reveal-delay-1">
-        I started my career building <strong>scalable cloud infrastructure</strong>, securing FedRAMP compliance, and optimizing CI/CD pipelines at Persistent Systems. I loved the depth of engineering problems, but realized my biggest impact came from the intersection of <strong>technical execution and business strategy.</strong>
+        I started my career building <strong>scalable cloud infrastructure</strong>, securing FedRAMP compliance, and optimizing CI/CD pipelines at Persistent Systems. I loved the depth of engineering problems—but realized my biggest impact came from the intersection of <strong>technical execution and business strategy.</strong>
       </p>
       <p class="about-text reveal reveal-delay-2">
-        That led me to <strong>Johns Hopkins University</strong> for my Master's in Engineering Management, where I consult for AWS and Johns Hopkins Hospital, translating complex operational data into product roadmaps and governance frameworks that executives actually act on.
+        That led me to <strong>Johns Hopkins University</strong> for my Master's in Engineering Management, where I consult for AWS and Johns Hopkins Hospital—translating complex operational data into product roadmaps and governance frameworks that executives actually act on.
       </p>
       <div class="about-chips reveal reveal-delay-3">
         <span class="chip">🎓 Johns Hopkins MS</span>
@@ -817,23 +810,23 @@ footer a:hover{color:#fff}
         <div class="skill-card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         </div>
-        <h3 class="skill-card-title">Generative AI</h3>
+        <h3 class="skill-card-title">AI &amp; Machine Learning</h3>
         <div class="skill-bars">
           <div class="skill-item">
-            <div class="skill-name"><span>LLM Fine-tuning &amp; Prompt Eng.</span><span class="skill-pct">90%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+            <div class="skill-name"><span>Generative AI &amp; RAG</span><span class="skill-pct">92%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>RAG Pipelines</span><span class="skill-pct">88%</span></div>
+            <div class="skill-name"><span>AI Governance &amp; Ethics</span><span class="skill-pct">88%</span></div>
             <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>Agentic Workflows (LangChain)</span><span class="skill-pct">85%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+            <div class="skill-name"><span>TensorFlow / PyTorch</span><span class="skill-pct">82%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>AI Evaluation &amp; Benchmarking</span><span class="skill-pct">82%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+            <div class="skill-name"><span>LLM Evaluation &amp; MLOps</span><span class="skill-pct">80%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
           </div>
         </div>
       </div>
@@ -843,59 +836,33 @@ footer a:hover{color:#fff}
         <div class="skill-card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
-        <h3 class="skill-card-title">Product Strategy</h3>
+        <h3 class="skill-card-title">Product &amp; Strategy</h3>
         <div class="skill-bars">
           <div class="skill-item">
-            <div class="skill-name"><span>0-to-1 Product Discovery</span><span class="skill-pct">90%</span></div>
+            <div class="skill-name"><span>Product Discovery</span><span class="skill-pct">90%</span></div>
             <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>ROI Modeling &amp; TCO Analysis</span><span class="skill-pct">88%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>Competitive Intelligence</span><span class="skill-pct">87%</span></div>
+            <div class="skill-name"><span>ROI &amp; Financial Modeling</span><span class="skill-pct">87%</span></div>
             <div class="skill-track"><div class="skill-fill" data-width="87"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>OKRs &amp; Roadmap Planning</span><span class="skill-pct">85%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI Governance -->
-      <div class="skill-card reveal reveal-delay-2">
-        <div class="skill-card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3 class="skill-card-title">AI Governance &amp; Risk</h3>
-        <div class="skill-bars">
-          <div class="skill-item">
-            <div class="skill-name"><span>Responsible AI Frameworks</span><span class="skill-pct">92%</span></div>
+            <div class="skill-name"><span>Stakeholder Management</span><span class="skill-pct">92%</span></div>
             <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>EU AI Act Compliance</span><span class="skill-pct">80%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>Bias, Fairness &amp; Safety</span><span class="skill-pct">88%</span></div>
+            <div class="skill-name"><span>Agile / Scrum</span><span class="skill-pct">88%</span></div>
             <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>Multi-Agent Risk Mitigation</span><span class="skill-pct">85%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
           </div>
         </div>
       </div>
 
       <!-- Cloud -->
-      <div class="skill-card reveal reveal-delay-3">
+      <div class="skill-card reveal reveal-delay-2">
         <div class="skill-card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
         </div>
-        <h3 class="skill-card-title">Cloud &amp; MLOps</h3>
+        <h3 class="skill-card-title">Cloud &amp; Infrastructure</h3>
         <div class="skill-bars">
           <div class="skill-item">
             <div class="skill-name"><span>AWS / Azure / GCP</span><span class="skill-pct">90%</span></div>
@@ -906,64 +873,38 @@ footer a:hover{color:#fff}
             <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>MLflow, SageMaker, Vertex AI</span><span class="skill-pct">82%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>CI/CD &amp; Terraform (IaC)</span><span class="skill-pct">90%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Data -->
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        </div>
-        <h3 class="skill-card-title">Data &amp; Analytics</h3>
-        <div class="skill-bars">
-          <div class="skill-item">
-            <div class="skill-name"><span>SQL &amp; Data Modeling</span><span class="skill-pct">88%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>Tableau &amp; Power BI</span><span class="skill-pct">85%</span></div>
+            <div class="skill-name"><span>Terraform (IaC)</span><span class="skill-pct">85%</span></div>
             <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>Python (Pandas, NumPy)</span><span class="skill-pct">90%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>A/B Testing &amp; Experimentation</span><span class="skill-pct">82%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+            <div class="skill-name"><span>CI/CD Pipelines</span><span class="skill-pct">92%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
           </div>
         </div>
       </div>
 
-      <!-- Emerging -->
-      <div class="skill-card reveal reveal-delay-1">
+      <!-- Languages -->
+      <div class="skill-card reveal reveal-delay-3">
         <div class="skill-card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
-        <h3 class="skill-card-title">Emerging Tech (2025)</h3>
+        <h3 class="skill-card-title">Languages &amp; Tools</h3>
         <div class="skill-bars">
           <div class="skill-item">
-            <div class="skill-name"><span>AI Agents + MCP Protocols</span><span class="skill-pct">83%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="83"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>Vector Databases (Pinecone, Weaviate)</span><span class="skill-pct">80%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-name"><span>OpenAI / Anthropic / Gemini APIs</span><span class="skill-pct">88%</span></div>
+            <div class="skill-name"><span>Golang</span><span class="skill-pct">88%</span></div>
             <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
           </div>
           <div class="skill-item">
-            <div class="skill-name"><span>Multimodal AI Systems</span><span class="skill-pct">78%</span></div>
-            <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+            <div class="skill-name"><span>Python</span><span class="skill-pct">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>JavaScript / React</span><span class="skill-pct">82%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>SQL &amp; Data Pipelines</span><span class="skill-pct">85%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
           </div>
         </div>
       </div>
@@ -996,8 +937,8 @@ footer a:hover{color:#fff}
               <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
               Amazon Web Services
             </div>
-            <div class="exp-role">Product Strategy Consultant: AI &amp; Governance</div>
-            <div class="exp-meta">Remote · Oct 2025 to Jan 2026</div>
+            <div class="exp-role">Product Strategy Consultant — AI &amp; Governance</div>
+            <div class="exp-meta">Remote · Oct 2025 – Jan 2026</div>
           </div>
           <button class="exp-toggle" aria-label="Expand">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -1007,15 +948,15 @@ footer a:hover{color:#fff}
           <div class="exp-body-inner">
             <div>
               <div class="exp-section-label">Discovery</div>
-              <div class="exp-section-content">Identified 7 critical market gaps (including Shadow AI and Multi-Agent failures) by evaluating Collibra, Informatica, and IBM against Gartner Magic Quadrant criteria through 8 expert interviews with industry leaders and PhD researchers.</div>
+              <div class="exp-section-content">Identified 7 critical market gaps—including Shadow AI and Multi-Agent failures—by evaluating Collibra, Informatica, and IBM against Gartner Magic Quadrant criteria through 8 expert interviews with industry leaders and PhD researchers.</div>
             </div>
             <div>
               <div class="exp-section-label">Solution Architecture</div>
-              <div class="exp-section-content">Authored a white paper on Agentic AI governance, proposing a 3-layer mitigation strategy: Real-time Monitoring, Tiered Access Controls, and Machine-Readable Policies, validated for scalability in regulated industries.</div>
+              <div class="exp-section-content">Authored a white paper on Agentic AI governance, proposing a 3-layer mitigation strategy: Real-time Monitoring, Tiered Access Controls, and Machine-Readable Policies—validated for scalability in regulated industries.</div>
             </div>
             <div class="exp-impact">
               <div class="exp-section-label">💡 Business Impact</div>
-              <div class="exp-section-content">Modeled 3 financial scenarios estimating TCO of <strong>$15.5M to $17.8M</strong>, delivered a <strong>3.2-year payback period</strong> business case that secured executive stakeholder alignment on a unified AI governance approach.</div>
+              <div class="exp-section-content">Modeled 3 financial scenarios estimating TCO of <strong>$15.5M–$17.8M</strong>, delivered a <strong>3.2-year payback period</strong> business case that secured executive stakeholder alignment on a unified AI governance approach.</div>
             </div>
           </div>
         </div>
@@ -1030,7 +971,7 @@ footer a:hover{color:#fff}
               Johns Hopkins Hospital
             </div>
             <div class="exp-role">Product Strategy Consultant</div>
-            <div class="exp-meta">Baltimore, US · Aug 2025 to Oct 2025</div>
+            <div class="exp-meta">Baltimore, US · Aug 2025 – Oct 2025</div>
           </div>
           <button class="exp-toggle" aria-label="Expand">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -1048,7 +989,7 @@ footer a:hover{color:#fff}
             </div>
             <div class="exp-impact">
               <div class="exp-section-label">💡 Business Impact</div>
-              <div class="exp-section-content">Presented a phased roadmap to the <strong>Director of Nursing</strong> featuring 3 interventions (NFC tracking, Shift Restructuring, Bed Dashboards) projected to significantly reduce PACU hold times and improve surgical throughput.</div>
+              <div class="exp-section-content">Presented a phased roadmap to the <strong>Director of Nursing</strong> featuring 3 interventions—NFC tracking, Shift Restructuring, Bed Dashboards—projected to significantly reduce PACU hold times and improve surgical throughput.</div>
             </div>
           </div>
         </div>
@@ -1066,7 +1007,7 @@ footer a:hover{color:#fff}
               Persistent Systems Limited
             </div>
             <div class="exp-role">Software Engineer &amp; Tech Lead</div>
-            <div class="exp-meta">Verna, IN · Sep 2023 to Jul 2025</div>
+            <div class="exp-meta">Verna, IN · Sep 2023 – Jul 2025</div>
           </div>
           <button class="exp-toggle" aria-label="Expand">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -1095,10 +1036,10 @@ footer a:hover{color:#fff}
           <div>
             <div class="exp-co-badge">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-              Persistent Systems (Intern)
+              Persistent Systems — Intern
             </div>
             <div class="exp-role">Software Engineer Intern</div>
-            <div class="exp-meta">Pune, IN · Mar 2023 to Aug 2023</div>
+            <div class="exp-meta">Pune, IN · Mar 2023 – Aug 2023</div>
           </div>
           <button class="exp-toggle" aria-label="Expand">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -1143,11 +1084,11 @@ footer a:hover{color:#fff}
       </div>
       <div>
         <div class="tl-year">Summer 2026</div>
-        <div class="tl-title">Something exciting is coming...</div>
-        <div class="tl-company" style="color:rgba(255,255,255,.35)">Stay tuned</div>
-        <div class="tl-desc">An upcoming opportunity that I am thrilled about. Reach out to learn more.</div>
+        <div class="tl-title">Product Manager Intern</div>
+        <div class="tl-company">Calix</div>
+        <div class="tl-desc">Accepted offer to develop strategic execution in a fast-paced telecom AI company building the future of broadband.</div>
         <span class="tl-tag">Upcoming</span>
-        <span class="tl-tag">Product</span>
+        <span class="tl-tag">AI Product</span>
       </div>
     </div>
 
@@ -1156,10 +1097,10 @@ footer a:hover{color:#fff}
         <div class="tl-dot"></div>
       </div>
       <div>
-        <div class="tl-year">Oct 2025 to Jan 2026</div>
+        <div class="tl-year">Oct 2025 – Jan 2026</div>
         <div class="tl-title">Product Strategy Consultant</div>
         <div class="tl-company">Amazon Web Services</div>
-        <div class="tl-desc">Designed AI governance framework. Modeled $15.5M to $17.8M TCO. Secured 3.2-year payback period buy-in from executives.</div>
+        <div class="tl-desc">Designed AI governance framework. Modeled $15.5M–$17.8M TCO. Secured 3.2-year payback period buy-in from executives.</div>
         <span class="tl-tag">AI Governance</span>
         <span class="tl-tag">Strategy</span>
       </div>
@@ -1170,21 +1111,7 @@ footer a:hover{color:#fff}
         <div class="tl-dot"></div>
       </div>
       <div>
-        <div class="tl-year">Aug 2025 to Oct 2025</div>
-        <div class="tl-title">Product Strategy Consultant</div>
-        <div class="tl-company">Johns Hopkins Hospital</div>
-        <div class="tl-desc">Led 24-stakeholder discovery, prototyped NFC patient tracking with Epic EHR integration, and presented a phased roadmap to the Director of Nursing to reduce PACU hold times.</div>
-        <span class="tl-tag">Healthcare</span>
-        <span class="tl-tag">Product Discovery</span>
-      </div>
-    </div>
-
-    <div class="tl-item reveal reveal-delay-3">
-      <div class="tl-dot-wrap">
-        <div class="tl-dot"></div>
-      </div>
-      <div>
-        <div class="tl-year">Aug 2025 to Dec 2026</div>
+        <div class="tl-year">Aug 2025 – Dec 2026</div>
         <div class="tl-title">M.S. Engineering Management</div>
         <div class="tl-company">Johns Hopkins University</div>
         <div class="tl-desc">Specializing in AI governance, healthcare operations modeling, and product innovation. Consulting with top institutions while in school.</div>
@@ -1193,12 +1120,12 @@ footer a:hover{color:#fff}
       </div>
     </div>
 
-    <div class="tl-item reveal reveal-delay-4">
+    <div class="tl-item reveal reveal-delay-3">
       <div class="tl-dot-wrap">
         <div class="tl-dot dim"></div>
       </div>
       <div>
-        <div class="tl-year">Sep 2023 to Jul 2025</div>
+        <div class="tl-year">Sep 2023 – Jul 2025</div>
         <div class="tl-title">Software Engineer</div>
         <div class="tl-company">Persistent Systems Limited</div>
         <div class="tl-desc">Led cloud infra, FedRAMP compliance, and CI/CD optimization. Reduced deployment times by 67%, unlocked $5M+ in enterprise revenue.</div>
@@ -1213,7 +1140,7 @@ footer a:hover{color:#fff}
         <div class="tl-dot dim"></div>
       </div>
       <div>
-        <div class="tl-year">Aug 2019 to May 2023</div>
+        <div class="tl-year">Aug 2019 – May 2023</div>
         <div class="tl-title">B.S. Information Technology</div>
         <div class="tl-company">Walchand Institute of Technology</div>
         <div class="tl-desc">Graduated with 3.74/4.0 GPA. Built AI traffic analytics platform and agriculture marketplace during final years.</div>
@@ -1230,12 +1157,13 @@ footer a:hover{color:#fff}
     <div style="max-width:560px;margin-bottom:60px">
       <div class="section-eyebrow reveal">Technical Builds</div>
       <h2 class="section-heading reveal">Things I've <em>shipped.</em></h2>
-      <p class="section-sub reveal reveal-delay-1">From ML models to marketplace platforms, end-to-end ownership, real users.</p>
+      <p class="section-sub reveal reveal-delay-1">From ML models to marketplace platforms—end-to-end ownership, real users.</p>
     </div>
     <div class="projects-grid">
       <div class="project-card reveal">
         <div class="project-num">01</div>
         <div class="project-title">AI-Powered Traffic Analytics</div>
+        <div class="project-date">Sep 2022 – Mar 2023</div>
         <div class="project-desc">TensorFlow + OpenCV models hitting 95% accuracy. Deployed on AWS Lambda with sub-100ms latency. Live insights dashboard launched across 3 cities for 10,000+ users with responsible-AI guardrails.</div>
         <div class="project-tags">
           <span class="project-tag">TensorFlow</span>
@@ -1247,6 +1175,7 @@ footer a:hover{color:#fff}
       <div class="project-card reveal reveal-delay-1">
         <div class="project-num">02</div>
         <div class="project-title">Agriculture Equipment Marketplace</div>
+        <div class="project-date">Sep 2021 – Aug 2022</div>
         <div class="project-desc">AI-ready marketplace on Golang microservices + ReactJS. IaC with Terraform and Docker enabled 70% faster release cycles. $50K+ in transactions, 500+ active users, validated with 50+ farmer focus groups.</div>
         <div class="project-tags">
           <span class="project-tag">Golang</span>
@@ -1258,6 +1187,7 @@ footer a:hover{color:#fff}
       <div class="project-card reveal reveal-delay-2">
         <div class="project-num">03</div>
         <div class="project-title">Healthcare Resource Management</div>
+        <div class="project-date">Mar 2021 – Jun 2021</div>
         <div class="project-desc">Requirements gathered across 50+ facilities. EHR-integrated architecture with CloudWatch dashboards. Prototype reduced patient delays by 15% and improved throughput 20%, securing enterprise adoption.</div>
         <div class="project-tags">
           <span class="project-tag">AWS CloudWatch</span>
@@ -1294,7 +1224,7 @@ footer a:hover{color:#fff}
 
 <!-- ─── FOOTER ────────────────────────────────────────── -->
 <footer>
-  <span class="footer-logo">Sanket Navale</span>
+  <span class="footer-logo">Sanket Sachin Navale</span>
   <span style="font-size:.8125rem">Built with precision · © 2026</span>
   <a href="https://www.linkedin.com/in/sanketnavale1436/" target="_blank" rel="noopener noreferrer" style="font-size:.8125rem">LinkedIn →</a>
 </footer>
