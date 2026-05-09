@@ -1,453 +1,1454 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sanket Navale - AI Product Strategy & Engineering</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: {
-            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' }
-          }
-        }
-      }
-    }
-  </script>
-  
-  <script src="https://unpkg.com/feather-icons"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
-      opacity: 0;
-    }
-    .accordion-content.expanded { opacity: 1; }
-    
-    /* Modern Gradient Text */
-    .text-gradient {
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-image: linear-gradient(90deg, #2563eb, #06b6d4);
-    }
-    .dark .text-gradient {
-      background-image: linear-gradient(90deg, #60a5fa, #22d3ee);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanket Sachin Navale · AI Product & Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET & VARS ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0a0a0f;
+  --ink-2:#3d3d4a;
+  --ink-3:#8888a0;
+  --surface:#fafaf8;
+  --surface-2:#f2f2ef;
+  --surface-3:#e8e8e3;
+  --accent:#1a56db;
+  --accent-2:#06b6d4;
+  --accent-warm:#f59e0b;
+  --line:rgba(10,10,15,0.08);
+  --radius:16px;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:var(--font-body);
+  background:var(--surface);
+  color:var(--ink);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────────────── */
+#cursor{
+  position:fixed;width:10px;height:10px;border-radius:50%;
+  background:var(--accent);pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .3s var(--ease-spring),height .3s var(--ease-spring),background .2s,opacity .2s;
+  mix-blend-mode:multiply;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--accent);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);opacity:.4;
+  transition:transform .12s linear,width .3s var(--ease-spring),height .3s var(--ease-spring),opacity .2s;
+}
+body:hover #cursor{opacity:1}
+.hoverable:hover~#cursor,a:hover~#cursor,button:hover~#cursor{
+  width:48px;height:48px;background:var(--accent-2);
+}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 48px;
+  background:rgba(250,250,248,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s,padding .3s;
+}
+nav.scrolled{border-color:var(--line);padding:14px 48px}
+.nav-logo{
+  font-family:var(--font-display);font-size:1.2rem;
+  color:var(--ink);text-decoration:none;letter-spacing:-.01em;
+}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{
+  font-size:.875rem;font-weight:500;color:var(--ink-2);
+  text-decoration:none;letter-spacing:.01em;
+  position:relative;padding-bottom:2px;
+  transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;
+  background:var(--accent);transition:width .3s var(--ease-out);
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  display:flex;align-items:center;gap:8px;
+  background:var(--ink);color:#fff;
+  padding:10px 20px;border-radius:100px;
+  font-size:.875rem;font-weight:500;
+  text-decoration:none;
+  transition:transform .2s var(--ease-spring),box-shadow .2s;
+  box-shadow:0 2px 12px rgba(10,10,15,.12);
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(10,10,15,.18)}
+.nav-cta svg{transition:transform .2s var(--ease-spring)}
+.nav-cta:hover svg{transform:translateX(2px)}
+
+/* ─── HERO ────────────────────────────────────────────────────── */
+#hero{
+  min-height:100vh;display:grid;place-items:center;
+  padding:120px 48px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.hero-blob{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:.18;
+  animation:blobFloat 8s ease-in-out infinite alternate;
+}
+.hero-blob-1{
+  width:600px;height:600px;
+  background:radial-gradient(circle,#1a56db,#06b6d4);
+  top:-200px;right:-100px;
+  animation-delay:0s;
+}
+.hero-blob-2{
+  width:400px;height:400px;
+  background:radial-gradient(circle,#f59e0b,#f97316);
+  bottom:-100px;left:-50px;
+  animation-delay:-3s;
+}
+.hero-blob-3{
+  width:300px;height:300px;
+  background:radial-gradient(circle,#8b5cf6,#1a56db);
+  top:40%;left:40%;
+  animation-delay:-5s;
+  opacity:.1;
+}
+@keyframes blobFloat{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(30px,20px) scale(1.05)}
+}
+
+/* Floating particles */
+.particle{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:var(--accent);opacity:0;
+  animation:particleDrift var(--dur,6s) ease-in-out infinite;
+  animation-delay:var(--delay,0s);
+}
+@keyframes particleDrift{
+  0%{opacity:0;transform:translate(0,0)}
+  20%{opacity:.4}
+  80%{opacity:.4}
+  100%{opacity:0;transform:translate(var(--dx,20px),var(--dy,-60px))}
+}
+
+.hero-inner{
+  max-width:900px;width:100%;position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--line);
+  border-radius:100px;padding:6px 16px 6px 10px;
+  font-size:.8rem;font-weight:500;color:var(--ink-2);
+  margin-bottom:32px;
+  box-shadow:0 2px 12px rgba(10,10,15,.06);
+  animation:fadeUp .8s var(--ease-out) both;
+}
+.badge-dot{
+  width:8px;height:8px;border-radius:50%;background:#22c55e;
+  box-shadow:0 0 0 3px rgba(34,197,94,.2);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+  50%{box-shadow:0 0 0 6px rgba(34,197,94,.1)}
+}
+
+.hero-name{
+  font-family:var(--font-display);
+  font-size:clamp(3rem,8vw,6.5rem);
+  line-height:.95;letter-spacing:-.02em;
+  color:var(--ink);
+  animation:fadeUp .8s var(--ease-out) .1s both;
+  margin-bottom:8px;
+}
+.hero-name em{
+  font-style:italic;color:var(--accent);
+  display:inline-block;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-title{
+  font-family:var(--font-display);font-style:italic;
+  font-size:clamp(1.5rem,4vw,3rem);
+  color:var(--ink-3);line-height:1.1;
+  letter-spacing:-.01em;
+  animation:fadeUp .8s var(--ease-out) .2s both;
+  margin-bottom:28px;
+}
+.hero-desc{
+  font-size:1.125rem;font-weight:300;line-height:1.7;
+  color:var(--ink-2);max-width:620px;
+  animation:fadeUp .8s var(--ease-out) .3s both;
+  margin-bottom:40px;
+}
+.hero-actions{
+  display:flex;flex-wrap:wrap;gap:12px;
+  animation:fadeUp .8s var(--ease-out) .4s both;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:#fff;
+  padding:14px 28px;border-radius:100px;
+  font-size:.9375rem;font-weight:500;
+  text-decoration:none;border:none;cursor:none;
+  transition:transform .25s var(--ease-spring),box-shadow .25s;
+  box-shadow:0 4px 20px rgba(10,10,15,.15);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(10,10,15,.2)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--ink);
+  padding:14px 28px;border-radius:100px;
+  font-size:.9375rem;font-weight:500;
+  text-decoration:none;
+  border:1.5px solid var(--surface-3);
+  transition:transform .25s var(--ease-spring),border-color .2s,background .2s;
+}
+.btn-secondary:hover{transform:translateY(-3px);border-color:var(--ink);background:var(--surface-2)}
+
+/* ─── STATS STRIP ─────────────────────────────────────────────── */
+.stats-strip{
+  background:var(--ink);color:#fff;
+  padding:40px 48px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  position:relative;overflow:hidden;
+}
+.stats-strip::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    90deg,transparent,transparent 1px,rgba(255,255,255,.03) 1px,rgba(255,255,255,.03) 2px
+  );
+}
+.stat{
+  padding:20px 32px;position:relative;z-index:1;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.stat:last-child{border-right:none}
+.stat-num{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,3.5rem);
+  line-height:1;letter-spacing:-.03em;
+  color:#fff;display:flex;align-items:baseline;gap:2px;
+}
+.stat-num span{color:var(--accent-2)}
+.stat-label{
+  font-size:.8125rem;font-weight:400;
+  color:rgba(255,255,255,.45);margin-top:6px;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+
+/* ─── SECTIONS ────────────────────────────────────────────────── */
+section{padding:100px 48px}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.75rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);
+  margin-bottom:16px;
+}
+.section-eyebrow::before{
+  content:'';width:24px;height:1.5px;background:var(--accent);
+}
+.section-heading{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4vw,3.25rem);
+  line-height:1.1;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:16px;
+}
+.section-heading em{font-style:italic;color:var(--accent)}
+.section-sub{
+  font-size:1.0625rem;font-weight:300;color:var(--ink-2);
+  line-height:1.7;max-width:560px;margin-bottom:60px;
+}
+
+/* ─── ABOUT ───────────────────────────────────────────────────── */
+#about{background:var(--surface-2)}
+.about-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1.6fr;gap:64px;align-items:center;
+}
+.about-photo-wrap{
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.about-photo-frame{
+  width:200px;height:200px;border-radius:50%;overflow:hidden;
+  background:var(--surface-3);
+  position:relative;flex-shrink:0;
+  box-shadow:0 0 0 6px #fff,0 0 0 8px var(--surface-3),0 16px 48px rgba(10,10,15,.12);
+}
+.about-photo-frame img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s var(--ease-out);
+}
+.about-photo-frame:hover img{transform:scale(1.06)}
+.photo-placeholder{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+  color:var(--ink-3);
+}
+.photo-placeholder svg{opacity:.4}
+.about-info-cards{display:flex;flex-direction:column;gap:10px;width:100%;align-items:center}
+.about-card{
+  background:#fff;border-radius:12px;padding:12px 18px;
+  box-shadow:0 4px 16px rgba(10,10,15,.07);
+  border:1px solid var(--line);
+  width:fit-content;text-align:center;min-width:160px;
+}
+.about-card-label{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.about-card-value{font-family:var(--font-display);font-size:1.05rem;color:var(--ink)}
+
+.about-content{padding-top:20px}
+.about-text{
+  font-size:1.0625rem;font-weight:300;line-height:1.8;
+  color:var(--ink-2);margin-bottom:20px;
+}
+.about-text strong{font-weight:500;color:var(--ink)}
+.about-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.chip{
+  padding:6px 14px;background:#fff;border:1px solid var(--line);
+  border-radius:100px;font-size:.8125rem;font-weight:500;color:var(--ink-2);
+  transition:border-color .2s,color .2s,background .2s;
+}
+.chip:hover{border-color:var(--accent);color:var(--accent);background:rgba(26,86,219,.04)}
+
+/* ─── SKILLS ──────────────────────────────────────────────────── */
+#skills{background:var(--surface)}
+.skills-outer{max-width:1100px;margin:0 auto}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.skill-card{
+  background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:32px;transition:border-color .3s,box-shadow .3s,transform .3s var(--ease-spring);
+  position:relative;overflow:hidden;
+}
+.skill-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(26,86,219,.03),rgba(6,182,212,.03));
+  opacity:0;transition:opacity .3s;
+}
+.skill-card:hover{
+  border-color:rgba(26,86,219,.2);
+  box-shadow:0 12px 40px rgba(26,86,219,.08);
+  transform:translateY(-4px);
+}
+.skill-card:hover::before{opacity:1}
+.skill-card-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  box-shadow:0 4px 16px rgba(26,86,219,.2);
+}
+.skill-card-icon svg{color:#fff}
+.skill-card-title{
+  font-family:var(--font-display);font-size:1.375rem;
+  color:var(--ink);margin-bottom:20px;
+}
+.skill-bars{display:flex;flex-direction:column;gap:12px}
+.skill-item{}
+.skill-name{
+  display:flex;justify-content:space-between;
+  font-size:.8125rem;font-weight:500;color:var(--ink-2);
+  margin-bottom:6px;
+}
+.skill-pct{color:var(--ink-3)}
+.skill-track{
+  height:4px;background:var(--surface-2);border-radius:100px;overflow:hidden;
+}
+.skill-fill{
+  height:100%;border-radius:100px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  width:0;transition:width 1.2s var(--ease-out);
+}
+
+/* ─── EXPERIENCE ──────────────────────────────────────────────── */
+#experience{background:var(--surface-2)}
+.exp-outer{max-width:1100px;margin:0 auto}
+.exp-tabs{
+  display:flex;gap:0;background:#fff;border:1px solid var(--line);
+  border-radius:100px;padding:4px;margin-bottom:48px;
+  width:fit-content;
+}
+.exp-tab{
+  padding:10px 24px;border-radius:100px;
+  font-size:.875rem;font-weight:500;color:var(--ink-3);
+  background:none;border:none;cursor:none;
+  transition:background .2s,color .2s,box-shadow .2s;
+}
+.exp-tab.active{
+  background:var(--ink);color:#fff;
+  box-shadow:0 2px 8px rgba(10,10,15,.15);
+}
+.exp-panel{display:none}
+.exp-panel.active{display:block;animation:fadeUp .4s var(--ease-out) both}
+.exp-card{
+  background:#fff;border:1px solid var(--line);border-radius:20px;
+  overflow:hidden;margin-bottom:16px;
+  transition:box-shadow .3s;
+}
+.exp-card:hover{box-shadow:0 8px 32px rgba(10,10,15,.08)}
+.exp-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:28px 32px;cursor:none;
+  gap:16px;
+}
+.exp-co-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(26,86,219,.08),rgba(6,182,212,.08));
+  border:1px solid rgba(26,86,219,.15);
+  border-radius:100px;padding:4px 12px;
+  font-size:.75rem;font-weight:600;color:var(--accent);
+  margin-bottom:8px;letter-spacing:.02em;
+}
+.exp-role{
+  font-family:var(--font-display);font-size:1.375rem;
+  color:var(--ink);margin-bottom:4px;
+}
+.exp-meta{font-size:.875rem;color:var(--ink-3)}
+.exp-toggle{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--surface-2);border:none;cursor:none;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .2s,transform .3s var(--ease-spring);
+}
+.exp-card.open .exp-toggle{background:var(--ink);transform:rotate(45deg)}
+.exp-card.open .exp-toggle svg{stroke:#fff}
+.exp-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s var(--ease-out),opacity .3s;
+  opacity:0;
+}
+.exp-card.open .exp-body{opacity:1}
+.exp-body-inner{
+  padding:0 32px 28px;
+  border-top:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  padding-top:24px;
+}
+.exp-section-label{
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;
+}
+.exp-section-content{
+  font-size:.9375rem;font-weight:300;line-height:1.7;color:var(--ink-2);
+}
+.exp-impact{
+  grid-column:1/-1;
+  background:linear-gradient(135deg,rgba(26,86,219,.05),rgba(6,182,212,.05));
+  border:1px solid rgba(26,86,219,.1);
+  border-radius:12px;padding:20px 24px;
+}
+.exp-impact .exp-section-label{color:var(--accent)}
+.exp-impact .exp-section-content{color:var(--ink);font-weight:400}
+
+/* ─── TIMELINE ────────────────────────────────────────────────── */
+#timeline{background:var(--ink);color:#fff;overflow:hidden}
+.timeline-outer{max-width:900px;margin:0 auto;position:relative}
+.timeline-line{
+  position:absolute;left:0;top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.15),transparent);
+}
+.tl-item{
+  display:grid;grid-template-columns:48px 1fr;gap:32px;
+  padding:40px 0;border-bottom:1px solid rgba(255,255,255,.06);
+  position:relative;
+}
+.tl-item:last-child{border-bottom:none}
+.tl-dot-wrap{display:flex;align-items:flex-start;padding-top:4px}
+.tl-dot{
+  width:12px;height:12px;border-radius:50%;
+  background:var(--accent-2);
+  box-shadow:0 0 0 4px rgba(6,182,212,.15);
+  flex-shrink:0;margin-left:-5.5px;
+  transition:transform .3s var(--ease-spring);
+}
+.tl-item:hover .tl-dot{transform:scale(1.5)}
+.tl-dot.dim{background:rgba(255,255,255,.2);box-shadow:none}
+.tl-year{
+  font-size:.75rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(255,255,255,.35);
+  margin-bottom:8px;
+}
+.tl-title{
+  font-family:var(--font-display);font-size:1.625rem;
+  color:#fff;margin-bottom:4px;
+}
+.tl-company{font-weight:500;color:var(--accent-2);margin-bottom:8px}
+.tl-desc{font-size:.9375rem;font-weight:300;color:rgba(255,255,255,.55);line-height:1.7}
+.tl-tag{
+  display:inline-flex;margin-top:12px;margin-right:6px;
+  padding:4px 10px;border-radius:100px;
+  background:rgba(255,255,255,.07);
+  font-size:.75rem;font-weight:500;color:rgba(255,255,255,.5);
+}
+
+/* ─── PROJECTS ────────────────────────────────────────────────── */
+#projects{background:var(--surface)}
+.projects-outer{max-width:1100px;margin:0 auto}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.project-card{
+  background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:28px;display:flex;flex-direction:column;
+  transition:border-color .3s,box-shadow .3s,transform .3s var(--ease-spring);
+  position:relative;overflow:hidden;
+}
+.project-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  opacity:0;transition:opacity .3s;
+  z-index:0;
+}
+.project-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(26,86,219,.12);
+  border-color:transparent;
+}
+.project-card:hover::after{opacity:.04}
+.project-card>*{position:relative;z-index:1}
+.project-num{
+  font-family:var(--font-display);font-size:2.5rem;font-style:italic;
+  color:var(--surface-3);line-height:1;margin-bottom:16px;
+  transition:color .3s;
+}
+.project-card:hover .project-num{color:rgba(26,86,219,.15)}
+.project-title{
+  font-family:var(--font-display);font-size:1.25rem;
+  color:var(--ink);margin-bottom:8px;
+}
+.project-date{font-size:.8rem;color:var(--ink-3);margin-bottom:12px}
+.project-desc{
+  font-size:.9rem;font-weight:300;line-height:1.7;
+  color:var(--ink-2);flex-grow:1;margin-bottom:20px;
+}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.project-tag{
+  padding:4px 10px;border-radius:100px;
+  background:var(--surface-2);
+  font-size:.75rem;font-weight:500;color:var(--ink-2);
+}
+
+/* ─── CONTACT ─────────────────────────────────────────────────── */
+#contact{
+  background:var(--surface-2);
+  position:relative;overflow:hidden;
+}
+#contact::before{
+  content:'';position:absolute;
+  width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,86,219,.05),transparent 60%);
+  top:-200px;right:-200px;pointer-events:none;
+}
+.contact-outer{
+  max-width:800px;margin:0 auto;text-align:center;
+  position:relative;z-index:1;
+}
+.contact-heading{
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,6vw,5rem);
+  line-height:1.05;letter-spacing:-.03em;
+  color:var(--ink);margin-bottom:20px;
+}
+.contact-heading em{font-style:italic;color:var(--accent)}
+.contact-sub{
+  font-size:1.0625rem;font-weight:300;color:var(--ink-2);
+  line-height:1.7;margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;
+}
+.contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.contact-link{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 28px;border-radius:100px;
+  font-size:.9375rem;font-weight:500;
+  text-decoration:none;
+  transition:transform .25s var(--ease-spring),box-shadow .25s;
+}
+.contact-link.primary{
+  background:var(--ink);color:#fff;
+  box-shadow:0 4px 20px rgba(10,10,15,.12);
+}
+.contact-link.primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(10,10,15,.2)}
+.contact-link.secondary{
+  background:#fff;color:var(--ink);
+  border:1.5px solid var(--surface-3);
+}
+.contact-link.secondary:hover{transform:translateY(-3px);border-color:var(--ink)}
+
+/* ─── FOOTER ──────────────────────────────────────────────────── */
+footer{
+  background:var(--ink);color:rgba(255,255,255,.35);
+  padding:32px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+footer a:hover{color:#fff}
+.footer-logo{
+  font-family:var(--font-display);font-size:1rem;
+  color:rgba(255,255,255,.6);
+}
+
+/* ─── ANIMATIONS ──────────────────────────────────────────────── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* Magnetic button effect container */
+.magnetic{display:inline-block;transition:transform .3s var(--ease-spring)}
+
+/* ─── SCROLL PROGRESS ─────────────────────────────────────────── */
+#progress{
+  position:fixed;top:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  z-index:200;transition:width .1s linear;
+  box-shadow:0 0 8px var(--accent-2);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────── */
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  #hero{padding:100px 24px 60px}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  section{padding:72px 24px}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .about-photo-wrap{max-width:320px;margin:0 auto}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .projects-grid{grid-template-columns:1fr}
+  .exp-body-inner{grid-template-columns:1fr}
+  .exp-impact{grid-column:1}
+  footer{flex-direction:column;gap:12px;text-align:center}
+  body{cursor:auto}
+  #cursor,#cursor-ring{display:none}
+}
+@media(max-width:600px){
+  .stats-strip{grid-template-columns:1fr}
+  .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  .stat:last-child{border-bottom:none}
+  .skills-grid{grid-template-columns:1fr}
+}
+
+/* ─── MARQUEE ─────────────────────────────────────────────────── */
+.marquee-wrap{
+  overflow:hidden;background:var(--surface-2);
+  padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.marquee-track{
+  display:flex;gap:48px;width:max-content;
+  animation:marquee 30s linear infinite;
+}
+.marquee-wrap:hover .marquee-track{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-item{
+  font-size:.8125rem;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-3);
+  white-space:nowrap;display:flex;align-items:center;gap:12px;
+}
+.marquee-item span{color:var(--accent);font-size:.5rem}
+
+/* ─── COUNTER ─────────────────────────────────────────────────── */
+.counting{
+  display:inline-block;
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 selection:bg-brand-200 dark:selection:bg-brand-900">
+<body>
 
-  <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">Sanket Sachin Navale</span>
-      <div class="flex gap-4 md:gap-6 items-center">
-        <a href="#about" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</a>
-        <a href="#skills" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Skills</a>
-        <a href="#experience" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Case Studies</a>
-        <a href="#projects" class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Projects</a>
-        
-        <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-          <i data-feather="moon" id="theme-icon" class="w-4 h-4"></i>
-        </button>
+<!-- Scroll progress -->
+<div id="progress"></div>
 
-        <a href="mailto:snavale1@jh.edu?subject=Requesting%20Full%20Resume%20-%20Sanket%20Navale&body=Hi%20Sanket,%0D%0A%0D%0AI%20was%20looking%20at%20your%20portfolio%20and%20would%20love%20to%20request%20a%20copy%20of%20your%20full%20resume.%0D%0A%0D%0AThank%20you!" 
-           class="flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-md hover:shadow-lg">
-          <i data-feather="lock" class="w-4 h-4"></i> Request Resume
-        </a>
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Sanket Navale</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:snavale1@jh.edu?subject=Requesting%20Resume%20-%20Sanket%20Navale" class="nav-cta magnetic">
+    Request Resume
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+    <!-- Particles injected by JS -->
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Available for Co-Op &amp; Internships · Summer 2026
+    </div>
+    <h1 class="hero-name">
+      Sanket<br><em>Navale.</em>
+    </h1>
+    <p class="hero-title">AI Product &amp; Engineering</p>
+    <p class="hero-desc">
+      Master's candidate at Johns Hopkins. I build scalable cloud infrastructure, design AI governance frameworks, and translate complex data into product strategies that ship.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary magnetic">
+        View Case Studies
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#about" class="btn-secondary magnetic">About Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─────────────────────────────────────────── -->
+<div class="stats-strip">
+  <div class="stat">
+    <div class="stat-num"><span class="counting" data-target="67">0</span><span>%</span></div>
+    <div class="stat-label">Deployment time reduced</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">$<span class="counting" data-target="5">0</span><span>M+</span></div>
+    <div class="stat-label">Sales pipeline unlocked</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span class="counting" data-target="47">0</span><span>%</span></div>
+    <div class="stat-label">Query latency cut</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span class="counting" data-target="10">0</span><span>k+</span></div>
+    <div class="stat-label">Users impacted</div>
+  </div>
+</div>
+
+<!-- ─── MARQUEE ───────────────────────────────────────── -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee-track">
+    <!-- doubled for seamless loop -->
+  </div>
+</div>
+
+<!-- ─── ABOUT ─────────────────────────────────────────── -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap reveal">
+      <div class="about-photo-frame">
+        <div class="photo-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <img src="Sanket's Photo.png" alt="Sanket Navale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+      </div>
+      <div class="about-info-cards">
+        <div class="about-card">
+          <div class="about-card-label">Based in</div>
+          <div class="about-card-value">Baltimore, US</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Open to</div>
+          <div class="about-card-value">Relocate Anywhere</div>
+        </div>
       </div>
     </div>
-  </nav>
 
-  <header class="max-w-6xl mx-auto px-6 py-24 md:py-32 reveal">
-    <div class="max-w-4xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-sm font-semibold mb-6 border border-brand-100 dark:border-brand-800">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-        </span>
-        Available for Co-Op & Internships
-      </div>
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6">
-        Bridging Technical Engineering and <span class="text-gradient">AI Product Strategy.</span>
-      </h1>
-      <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-3xl">
-        Master's candidate in Engineering Management at Johns Hopkins University. I build scalable infrastructure, design unified AI governance frameworks, and translate complex data into high-ROI product strategies.
+    <div class="about-content">
+      <div class="section-eyebrow reveal">About Me</div>
+      <h2 class="section-heading reveal">Engineer who<br>thinks like a <em>founder.</em></h2>
+      <p class="about-text reveal reveal-delay-1">
+        I started my career building <strong>scalable cloud infrastructure</strong>, securing FedRAMP compliance, and optimizing CI/CD pipelines at Persistent Systems. I loved the depth of engineering problems, but realized my biggest impact came from the intersection of <strong>technical execution and business strategy.</strong>
       </p>
-      <div class="flex flex-wrap gap-4">
-        <a href="#experience" class="flex items-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-500/25 hover:-translate-y-0.5 transition-all">
-          Explore Case Studies <i data-feather="arrow-right" class="w-4 h-4"></i>
-        </a>
+      <p class="about-text reveal reveal-delay-2">
+        That led me to <strong>Johns Hopkins University</strong> for my Master's in Engineering Management, where I consult for AWS and Johns Hopkins Hospital, translating complex operational data into product roadmaps and governance frameworks that executives actually act on.
+      </p>
+      <div class="about-chips reveal reveal-delay-3">
+        <span class="chip">🎓 Johns Hopkins MS</span>
+        <span class="chip">☁️ AWS · Azure · GCP</span>
+        <span class="chip">🤖 Generative AI</span>
+        <span class="chip">📐 FedRAMP Certified</span>
+        <span class="chip">🏥 Healthcare Tech</span>
+        <span class="chip">⚡ Golang · Python</span>
       </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <section id="about" class="py-20 bg-white dark:bg-slate-950/50 border-t border-slate-200 dark:border-slate-800 transition-colors">
-    <div class="max-w-5xl mx-auto px-6 reveal">
-      <div class="flex flex-col md:flex-row gap-12 items-center">
-        <div class="w-56 h-56 md:w-72 md:h-72 shrink-0 relative rounded-full overflow-hidden border-4 border-slate-100 dark:border-slate-800 shadow-xl flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-400">
-          <i data-feather="camera" class="w-12 h-12 absolute z-0 opacity-50"></i>
-          <img src="Sanket's Photo.png" alt="Sanket Navale" class="w-full h-full object-cover relative z-10" onerror="this.style.display='none'" />
+<!-- ─── SKILLS ─────────────────────────────────────────── -->
+<section id="skills">
+  <div class="skills-outer">
+    <div style="max-width:560px;margin-bottom:60px">
+      <div class="section-eyebrow reveal">Core Capabilities</div>
+      <h2 class="section-heading reveal">Where tech meets <em>strategy.</em></h2>
+      <p class="section-sub reveal reveal-delay-1">Two years building production systems. One year translating them into business impact. The overlap is where I live.</p>
+    </div>
+
+    <div class="skills-grid">
+      <!-- AI/ML -->
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         </div>
-        
-        <div class="space-y-6 text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-            <i data-feather="user" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-            <h2 class="text-3xl font-bold">About Me</h2>
+        <h3 class="skill-card-title">Generative AI</h3>
+        <div class="skill-bars">
+          <div class="skill-item">
+            <div class="skill-name"><span>LLM Fine-tuning &amp; Prompt Eng.</span><span class="skill-pct">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
           </div>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
-            I started my career building scalable cloud infrastructure, securing FedRAMP compliance, and optimizing CI/CD pipelines as a Software Engineer at Persistent Systems. While I loved tackling deep technical challenges, I realized my true passion lies at the intersection of engineering and business strategy.
-          </p>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
-            This drive led me to <span class="font-semibold text-slate-900 dark:text-white">Johns Hopkins University</span>, where I am currently pursuing my Master's in Engineering Management. Today, I focus on bridging the gap between technical execution and high-level product vision—specializing in AI governance, operational strategy, and delivering data-driven ROI.
-          </p>
+          <div class="skill-item">
+            <div class="skill-name"><span>RAG Pipelines</span><span class="skill-pct">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Agentic Workflows (LangChain)</span><span class="skill-pct">85%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>AI Evaluation &amp; Benchmarking</span><span class="skill-pct">82%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product -->
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3 class="skill-card-title">Product Strategy</h3>
+        <div class="skill-bars">
+          <div class="skill-item">
+            <div class="skill-name"><span>0-to-1 Product Discovery</span><span class="skill-pct">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>ROI Modeling &amp; TCO Analysis</span><span class="skill-pct">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Competitive Intelligence</span><span class="skill-pct">87%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="87"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>OKRs &amp; Roadmap Planning</span><span class="skill-pct">85%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Governance -->
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="skill-card-title">AI Governance &amp; Risk</h3>
+        <div class="skill-bars">
+          <div class="skill-item">
+            <div class="skill-name"><span>Responsible AI Frameworks</span><span class="skill-pct">92%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>EU AI Act Compliance</span><span class="skill-pct">80%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Bias, Fairness &amp; Safety</span><span class="skill-pct">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Multi-Agent Risk Mitigation</span><span class="skill-pct">85%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cloud -->
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        </div>
+        <h3 class="skill-card-title">Cloud &amp; MLOps</h3>
+        <div class="skill-bars">
+          <div class="skill-item">
+            <div class="skill-name"><span>AWS / Azure / GCP</span><span class="skill-pct">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Docker &amp; Kubernetes</span><span class="skill-pct">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>MLflow, SageMaker, Vertex AI</span><span class="skill-pct">82%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>CI/CD &amp; Terraform (IaC)</span><span class="skill-pct">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data -->
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <h3 class="skill-card-title">Data &amp; Analytics</h3>
+        <div class="skill-bars">
+          <div class="skill-item">
+            <div class="skill-name"><span>SQL &amp; Data Modeling</span><span class="skill-pct">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Tableau &amp; Power BI</span><span class="skill-pct">85%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Python (Pandas, NumPy)</span><span class="skill-pct">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>A/B Testing &amp; Experimentation</span><span class="skill-pct">82%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emerging -->
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="skill-card-title">Emerging Tech (2025)</h3>
+        <div class="skill-bars">
+          <div class="skill-item">
+            <div class="skill-name"><span>AI Agents + MCP Protocols</span><span class="skill-pct">83%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="83"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Vector Databases (Pinecone, Weaviate)</span><span class="skill-pct">80%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>OpenAI / Anthropic / Gemini APIs</span><span class="skill-pct">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name"><span>Multimodal AI Systems</span><span class="skill-pct">78%</span></div>
+            <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="skills" class="py-20 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-6xl mx-auto px-6 reveal">
-      <div class="flex items-center gap-3 mb-12">
-        <i data-feather="cpu" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-        <h2 class="text-3xl font-bold">Core Capabilities</h2>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 transition-colors shadow-sm hover:shadow-md">
-          <i data-feather="target" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">AI & Machine Learning</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Generative AI & RAG</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Agentic Workflows</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">TensorFlow & OpenCV</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">LLM Evaluation & Bias</span>
-          </div>
-        </div>
-        
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 transition-colors shadow-sm hover:shadow-md">
-          <i data-feather="trending-up" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">Product & Strategy</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Product Discovery</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">ROI & Financial Modeling</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Agile/Scrum</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Cross-functional Leadership</span>
-          </div>
-        </div>
-
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 transition-colors shadow-sm hover:shadow-md">
-          <i data-feather="cloud" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">Cloud & Infrastructure</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">AWS, Azure, GCP</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Docker & Kubernetes</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Terraform (IaC)</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">CI/CD Pipelines</span>
-          </div>
-        </div>
-
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 transition-colors shadow-sm hover:shadow-md">
-          <i data-feather="terminal" class="w-6 h-6 text-brand-500 mb-4"></i>
-          <h3 class="text-lg font-bold mb-4">Languages & Core Tech</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Golang</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">Python</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">JavaScript / React</span>
-            <span class="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-sm rounded shadow-sm border border-slate-100 dark:border-slate-700">SQL & Microservices</span>
-          </div>
-        </div>
-      </div>
+<!-- ─── EXPERIENCE ─────────────────────────────────────── -->
+<section id="experience">
+  <div class="exp-outer">
+    <div style="max-width:560px;margin-bottom:48px">
+      <div class="section-eyebrow reveal">Case Studies</div>
+      <h2 class="section-heading reveal">Work that <em>moved needles.</em></h2>
+      <p class="section-sub reveal reveal-delay-1">Real projects, real stakeholders, real outcomes. Click any card to expand.</p>
     </div>
-  </section>
 
-  <section id="timeline" class="py-20 bg-white dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 transition-colors">
-    <div class="max-w-4xl mx-auto px-6 reveal">
-      <div class="flex items-center gap-3 mb-12">
-        <i data-feather="map" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-        <h2 class="text-3xl font-bold">The Journey So Far</h2>
-      </div>
-
-      <div class="relative border-l-2 border-brand-200 dark:border-brand-900 ml-3 md:ml-6 space-y-10">
-        
-        <div class="relative pl-8 md:pl-10 reveal">
-          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-600 border-4 border-slate-100 dark:border-slate-900"></div>
-          <p class="text-sm font-bold text-brand-600 dark:text-brand-400 mb-1">Summer 2026</p>
-          <h3 class="text-xl font-bold">Upcoming Internship</h3>
-          <p class="text-slate-600 dark:text-slate-400 mt-2">Accepted summer internship offer at Calix to further develop strategic execution in a fast-paced environment.</p>
-        </div>
-
-        <div class="relative pl-8 md:pl-10 reveal">
-          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-100 dark:border-slate-900"></div>
-          <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">Aug 2025 - Dec 2026</p>
-          <h3 class="text-xl font-bold">M.S. in Engineering Management</h3>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">Johns Hopkins University</p>
-          <p class="text-slate-600 dark:text-slate-400 mt-2">Specializing in AI governance frameworks, healthcare operations modeling, and product innovation strategies.</p>
-        </div>
-
-        <div class="relative pl-8 md:pl-10 reveal">
-          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-100 dark:border-slate-900"></div>
-          <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">Sep 2023 - Jul 2025</p>
-          <h3 class="text-xl font-bold">Software Engineer</h3>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">Persistent Systems Limited</p>
-          <p class="text-slate-600 dark:text-slate-400 mt-2">Engineered scalable cloud infrastructure, secured FedRAMP compliance, and optimized CI/CD pipelines.</p>
-        </div>
-      </div>
+    <div class="exp-tabs reveal">
+      <button class="exp-tab active" data-panel="consulting">Consulting</button>
+      <button class="exp-tab" data-panel="engineering">Engineering</button>
     </div>
-  </section>
 
-  <section id="experience" class="py-20 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="flex items-center gap-3 mb-12 reveal">
-        <i data-feather="briefcase" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-        <h2 class="text-3xl font-bold">Professional Case Studies</h2>
-      </div>
-      
-      <div class="space-y-6">
-        
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all reveal cursor-pointer group accordion-toggle">
-          <div class="w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none">
+    <!-- Consulting panel -->
+    <div class="exp-panel active" id="panel-consulting">
+
+      <!-- AWS -->
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-co-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Amazon Web Services
+            </div>
+            <div class="exp-role">Product Strategy Consultant: AI &amp; Governance</div>
+            <div class="exp-meta">Remote · Oct 2025 to Jan 2026</div>
+          </div>
+          <button class="exp-toggle" aria-label="Expand">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-inner">
             <div>
-              <h3 class="text-xl font-bold mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Product Strategy Consultant - AI & Governance</h3>
-              <p class="text-brand-600 dark:text-brand-400 font-medium">Amazon Web Services <span class="text-slate-400 dark:text-slate-500 font-normal ml-2">| Oct '25 - Jan '26</span></p>
+              <div class="exp-section-label">Discovery</div>
+              <div class="exp-section-content">Identified 7 critical market gaps (including Shadow AI and Multi-Agent failures) by evaluating Collibra, Informatica, and IBM against Gartner Magic Quadrant criteria through 8 expert interviews with industry leaders and PhD researchers.</div>
             </div>
-            <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full transform transition-transform duration-300 icon-wrapper">
-              <i data-feather="chevron-down" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
-            </div>
-          </div>
-          
-          <div class="accordion-content px-6 md:px-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 rounded-b-2xl cursor-default">
-            <div class="py-6 space-y-6">
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Strategic Discovery</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Identified 7 critical market gaps (including Shadow AI and Multi-Agent failures) within the AI governance sector by conducting 8 expert interviews and evaluating competitors (Collibra, Informatica) against Gartner Magic Quadrant criteria.</p>
-              </div>
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">The Solution Architecture</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Authored a comprehensive white paper on Agentic AI governance, proposing a 3-layer mitigation strategy (Real-time Monitoring, Tiered Access, Machine-Readable Policies) to validate scalable frameworks for regulated industries.</p>
-              </div>
-              <div class="bg-brand-50 dark:bg-brand-900/20 p-5 rounded-xl border border-brand-100 dark:border-brand-800 shadow-inner">
-                <h4 class="text-sm font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider mb-2">Business Impact & ROI</h4>
-                <p class="text-slate-900 dark:text-white font-medium">Delivered a compelling business case by modeling financial scenarios, estimating a total cost of ownership (TCO) between $15.5M - $17.8M, securing a highly viable 3.2-year payback period validated by executive stakeholders.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all reveal cursor-pointer group accordion-toggle">
-          <div class="w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none">
             <div>
-              <h3 class="text-xl font-bold mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Product Strategy Consultant</h3>
-              <p class="text-brand-600 dark:text-brand-400 font-medium">Johns Hopkins Hospital <span class="text-slate-400 dark:text-slate-500 font-normal ml-2">| Aug '25 - Oct '25</span></p>
+              <div class="exp-section-label">Solution Architecture</div>
+              <div class="exp-section-content">Authored a white paper on Agentic AI governance, proposing a 3-layer mitigation strategy: Real-time Monitoring, Tiered Access Controls, and Machine-Readable Policies, validated for scalability in regulated industries.</div>
             </div>
-            <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full transform transition-transform duration-300 icon-wrapper">
-              <i data-feather="chevron-down" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
-            </div>
-          </div>
-          
-          <div class="accordion-content px-6 md:px-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 rounded-b-2xl cursor-default">
-            <div class="py-6 space-y-6">
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Operational Analysis</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Diagnosed root causes of perioperative patient flow bottlenecks and PACU holds by interviewing 24 stakeholders and modeling 90 days of operational datasets using Tableau.</p>
-              </div>
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Technical Prototyping</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Mapped user journeys for frontline nurses to define technical data flows. Designed a prototype for an NFC-based patient tracking system with API requirements for Epic EHR integration to automate transfer logging.</p>
-              </div>
-              <div class="bg-brand-50 dark:bg-brand-900/20 p-5 rounded-xl border border-brand-100 dark:border-brand-800 shadow-inner">
-                <h4 class="text-sm font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider mb-2">Strategic Recommendations</h4>
-                <p class="text-slate-900 dark:text-white font-medium">Presented a phased implementation roadmap to the Director of Nursing featuring 3 targeted interventions (NFC tracking, Shift Restructuring, Bed Dashboards) to drastically reduce wait times and improve surgical throughput.</p>
-              </div>
+            <div class="exp-impact">
+              <div class="exp-section-label">💡 Business Impact</div>
+              <div class="exp-section-content">Modeled 3 financial scenarios estimating TCO of <strong>$15.5M to $17.8M</strong>, delivered a <strong>3.2-year payback period</strong> business case that secured executive stakeholder alignment on a unified AI governance approach.</div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all reveal cursor-pointer group accordion-toggle">
-          <div class="w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none">
+      <!-- JHH -->
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-header">
+          <div>
+            <div class="exp-co-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Johns Hopkins Hospital
+            </div>
+            <div class="exp-role">Product Strategy Consultant</div>
+            <div class="exp-meta">Baltimore, US · Aug 2025 to Oct 2025</div>
+          </div>
+          <button class="exp-toggle" aria-label="Expand">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-inner">
             <div>
-              <h3 class="text-xl font-bold mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Software Engineer & Tech Lead</h3>
-              <p class="text-brand-600 dark:text-brand-400 font-medium">Persistent Systems Limited <span class="text-slate-400 dark:text-slate-500 font-normal ml-2">| Sep '23 - Jul '25</span></p>
+              <div class="exp-section-label">Operational Analysis</div>
+              <div class="exp-section-content">Diagnosed root causes of perioperative patient flow bottlenecks through 24 stakeholder interviews (nurses, administrators, OR teams) and modeled 90 days of operational data in Tableau.</div>
             </div>
-            <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-full transform transition-transform duration-300 icon-wrapper">
-              <i data-feather="chevron-down" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+            <div>
+              <div class="exp-section-label">Technical Prototyping</div>
+              <div class="exp-section-content">Mapped user journeys for 18 frontline nurses, defining NFC-based patient tracking system requirements including API specs for Epic EHR integration to automate transfer timestamp logging.</div>
             </div>
-          </div>
-          
-          <div class="accordion-content px-6 md:px-8 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 rounded-b-2xl cursor-default">
-            <div class="py-6 space-y-6">
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Cloud Infrastructure Leadership</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Engineered scalable CI/CD pipelines utilizing Docker and Kubernetes for a Multi-Cloud SaaS product. Automated infrastructure provisioning using Terraform to streamline tenant onboarding.</p>
-              </div>
-              <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Product Alignment & Compliance</h4>
-                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Led enterprise compliance projects coordinating security teams to achieve FIPS/FedRAMP certification, enabling a $5M+ sales pipeline. Translated business requirements into technical specs for 10,000+ users.</p>
-              </div>
-              <div class="bg-brand-50 dark:bg-brand-900/20 p-5 rounded-xl border border-brand-100 dark:border-brand-800 shadow-inner">
-                <h4 class="text-sm font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider mb-2">Quantifiable Impact</h4>
-                <p class="text-slate-900 dark:text-white font-medium">Reduced deployment time by 67%, optimized SQL queries achieving a 47% reduction in latency, and led self-service provisioning features that reduced manual support ticket volume by 15%.</p>
-              </div>
+            <div class="exp-impact">
+              <div class="exp-section-label">💡 Business Impact</div>
+              <div class="exp-section-content">Presented a phased roadmap to the <strong>Director of Nursing</strong> featuring 3 interventions (NFC tracking, Shift Restructuring, Bed Dashboards) projected to significantly reduce PACU hold times and improve surgical throughput.</div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-  </section>
 
-  <section id="projects" class="py-20 bg-white dark:bg-slate-950/50 border-t border-slate-200 dark:border-slate-800 transition-colors">
-    <div class="max-w-6xl mx-auto px-6 reveal">
-      <div class="flex items-center gap-3 mb-12">
-        <i data-feather="layout" class="text-brand-600 dark:text-brand-400 w-7 h-7"></i>
-        <h2 class="text-3xl font-bold">Technical Builds & Projects</h2>
+    <!-- Engineering panel -->
+    <div class="exp-panel" id="panel-engineering">
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-co-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Persistent Systems Limited
+            </div>
+            <div class="exp-role">Software Engineer &amp; Tech Lead</div>
+            <div class="exp-meta">Verna, IN · Sep 2023 to Jul 2025</div>
+          </div>
+          <button class="exp-toggle" aria-label="Expand">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-inner">
+            <div>
+              <div class="exp-section-label">Cloud Infrastructure</div>
+              <div class="exp-section-content">Engineered CI/CD pipelines using Docker and Kubernetes for a Multi-Cloud SaaS product across AWS and Azure. Automated infrastructure provisioning with Terraform to streamline tenant onboarding and eliminate manual ops.</div>
+            </div>
+            <div>
+              <div class="exp-section-label">Product &amp; Compliance</div>
+              <div class="exp-section-content">Led FIPS/FedRAMP certification initiative coordinating security and QA teams, enabling a $5M+ enterprise sales pipeline. Translated business requirements into technical specs for 10,000+ active users.</div>
+            </div>
+            <div class="exp-impact">
+              <div class="exp-section-label">💡 Quantified Impact</div>
+              <div class="exp-section-content">Reduced deployment time by <strong>67%</strong>, cut SQL query latency by <strong>47%</strong>, and led self-service provisioning features that dropped manual support ticket volume by <strong>15%</strong>.</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        
-        <div class="bg-slate-50 dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all flex flex-col h-full group">
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">AI-Powered Traffic Analytics</h3>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 font-mono">Sep '22 - Mar '23</p>
-          <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Built TensorFlow and OpenCV models achieving 95% accuracy, deploying via AWS Lambda to reduce latency by 40% for a live insights dashboard. MVP launched across 3 cities for 10k+ users.</p>
-          <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-200 dark:border-slate-800">
-            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-full shadow-sm">TensorFlow / OpenCV</span>
-            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-full shadow-sm">AWS Lambda</span>
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-header">
+          <div>
+            <div class="exp-co-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Persistent Systems (Intern)
+            </div>
+            <div class="exp-role">Software Engineer Intern</div>
+            <div class="exp-meta">Pune, IN · Mar 2023 to Aug 2023</div>
+          </div>
+          <button class="exp-toggle" aria-label="Expand">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-inner">
+            <div>
+              <div class="exp-section-label">Infrastructure Automation</div>
+              <div class="exp-section-content">Designed Terraform IaC strategy that achieved a 60% reduction in provisioning time and enabled 5× faster deployment cycles across cloud environments.</div>
+            </div>
+            <div>
+              <div class="exp-section-label">Stakeholder Research</div>
+              <div class="exp-section-content">Facilitated requirement workshops with 8+ stakeholders, synthesizing findings into product specifications that improved stakeholder alignment and product-market fit.</div>
+            </div>
+            <div class="exp-impact">
+              <div class="exp-section-label">💡 Key Win</div>
+              <div class="exp-section-content">Supported FedRAMP certification effort that unlocked the <strong>$5M+</strong> enterprise sales pipeline and enabled market expansion into regulated government sectors.</div>
+            </div>
           </div>
         </div>
-
-        <div class="bg-slate-50 dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all flex flex-col h-full group">
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Agriculture Marketplace</h3>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 font-mono">Sep '21 - Aug '22</p>
-          <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Developed an AI-ready marketplace using Golang microservices and ReactJs. Automated infrastructure with Terraform and Docker, accelerating release cycles by 70% and supporting $50K+ in transactions.</p>
-          <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-200 dark:border-slate-800">
-            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-full shadow-sm">Golang & React</span>
-            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-full shadow-sm">Docker / Terraform</span>
-          </div>
-        </div>
-
-        <div class="bg-slate-50 dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-xl transition-all flex flex-col h-full group">
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Healthcare Resource Mgmt.</h3>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 font-mono">Mar '21 - Jun '21</p>
-          <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Led requirements across 50+ facilities. Designed an EHR-integrated architecture with CloudWatch dashboards, successfully piloting a prototype that reduced patient delays by 15%.</p>
-          <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-200 dark:border-slate-800">
-            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-full shadow-sm">AWS CloudWatch</span>
-            <span class="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-full shadow-sm">EHR Integration</span>
-          </div>
-        </div>
-
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <p>© 2026 Sanket Sachin Navale.</p>
-      <div class="flex gap-4">
-        <a href="https://www.linkedin.com/in/sanketnavale1436/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
-          <i data-feather="linkedin" class="w-5 h-5"></i>
-        </a>
+<!-- ─── TIMELINE ───────────────────────────────────────── -->
+<section id="timeline">
+  <div class="timeline-outer">
+    <div style="margin-bottom:60px">
+      <div class="section-eyebrow reveal" style="color:rgba(255,255,255,.5)">
+        <span style="background:rgba(255,255,255,.2);height:1.5px;display:inline-block;width:24px"></span>
+        The Journey
+      </div>
+      <h2 class="section-heading reveal" style="color:#fff">Built different,<br><em>every step.</em></h2>
+    </div>
+    <div class="timeline-line"></div>
+
+    <div class="tl-item reveal">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot" style="background:var(--accent-warm);box-shadow:0 0 0 4px rgba(245,158,11,.15)"></div>
+      </div>
+      <div>
+        <div class="tl-year">Summer 2026</div>
+        <div class="tl-title">Something exciting is coming...</div>
+        <div class="tl-company" style="color:rgba(255,255,255,.35)">Stay tuned</div>
+        <div class="tl-desc">An upcoming opportunity that I am thrilled about. Reach out to learn more.</div>
+        <span class="tl-tag">Upcoming</span>
+        <span class="tl-tag">Product</span>
       </div>
     </div>
-  </footer>
 
-  <script>
-    feather.replace();
+    <div class="tl-item reveal reveal-delay-1">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot"></div>
+      </div>
+      <div>
+        <div class="tl-year">Oct 2025 to Jan 2026</div>
+        <div class="tl-title">Product Strategy Consultant</div>
+        <div class="tl-company">Amazon Web Services</div>
+        <div class="tl-desc">Designed AI governance framework. Modeled $15.5M to $17.8M TCO. Secured 3.2-year payback period buy-in from executives.</div>
+        <span class="tl-tag">AI Governance</span>
+        <span class="tl-tag">Strategy</span>
+      </div>
+    </div>
 
-    // Dark Mode Toggle
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-        themeIcon.setAttribute('data-feather', 'sun');
-    } else {
-        document.documentElement.classList.remove('dark');
-        themeIcon.setAttribute('data-feather', 'moon');
+    <div class="tl-item reveal reveal-delay-2">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot"></div>
+      </div>
+      <div>
+        <div class="tl-year">Aug 2025 to Oct 2025</div>
+        <div class="tl-title">Product Strategy Consultant</div>
+        <div class="tl-company">Johns Hopkins Hospital</div>
+        <div class="tl-desc">Led 24-stakeholder discovery, prototyped NFC patient tracking with Epic EHR integration, and presented a phased roadmap to the Director of Nursing to reduce PACU hold times.</div>
+        <span class="tl-tag">Healthcare</span>
+        <span class="tl-tag">Product Discovery</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal reveal-delay-3">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot"></div>
+      </div>
+      <div>
+        <div class="tl-year">Aug 2025 to Dec 2026</div>
+        <div class="tl-title">M.S. Engineering Management</div>
+        <div class="tl-company">Johns Hopkins University</div>
+        <div class="tl-desc">Specializing in AI governance, healthcare operations modeling, and product innovation. Consulting with top institutions while in school.</div>
+        <span class="tl-tag">In Progress</span>
+        <span class="tl-tag">GPA: 4.0</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal reveal-delay-4">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot dim"></div>
+      </div>
+      <div>
+        <div class="tl-year">Sep 2023 to Jul 2025</div>
+        <div class="tl-title">Software Engineer</div>
+        <div class="tl-company">Persistent Systems Limited</div>
+        <div class="tl-desc">Led cloud infra, FedRAMP compliance, and CI/CD optimization. Reduced deployment times by 67%, unlocked $5M+ in enterprise revenue.</div>
+        <span class="tl-tag">Cloud</span>
+        <span class="tl-tag">Golang</span>
+        <span class="tl-tag">DevOps</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal reveal-delay-4">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot dim"></div>
+      </div>
+      <div>
+        <div class="tl-year">Aug 2019 to May 2023</div>
+        <div class="tl-title">B.S. Information Technology</div>
+        <div class="tl-company">Walchand Institute of Technology</div>
+        <div class="tl-desc">Graduated with 3.74/4.0 GPA. Built AI traffic analytics platform and agriculture marketplace during final years.</div>
+        <span class="tl-tag">GPA 3.74</span>
+        <span class="tl-tag">Top Graduate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ───────────────────────────────────────── -->
+<section id="projects">
+  <div class="projects-outer">
+    <div style="max-width:560px;margin-bottom:60px">
+      <div class="section-eyebrow reveal">Technical Builds</div>
+      <h2 class="section-heading reveal">Things I've <em>shipped.</em></h2>
+      <p class="section-sub reveal reveal-delay-1">From ML models to marketplace platforms, end-to-end ownership, real users.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-num">01</div>
+        <div class="project-title">AI-Powered Traffic Analytics</div>
+        <div class="project-desc">TensorFlow + OpenCV models hitting 95% accuracy. Deployed on AWS Lambda with sub-100ms latency. Live insights dashboard launched across 3 cities for 10,000+ users with responsible-AI guardrails.</div>
+        <div class="project-tags">
+          <span class="project-tag">TensorFlow</span>
+          <span class="project-tag">OpenCV</span>
+          <span class="project-tag">AWS Lambda</span>
+          <span class="project-tag">Python</span>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-num">02</div>
+        <div class="project-title">Agriculture Equipment Marketplace</div>
+        <div class="project-desc">AI-ready marketplace on Golang microservices + ReactJS. IaC with Terraform and Docker enabled 70% faster release cycles. $50K+ in transactions, 500+ active users, validated with 50+ farmer focus groups.</div>
+        <div class="project-tags">
+          <span class="project-tag">Golang</span>
+          <span class="project-tag">React</span>
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">Docker</span>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-num">03</div>
+        <div class="project-title">Healthcare Resource Management</div>
+        <div class="project-desc">Requirements gathered across 50+ facilities. EHR-integrated architecture with CloudWatch dashboards. Prototype reduced patient delays by 15% and improved throughput 20%, securing enterprise adoption.</div>
+        <div class="project-tags">
+          <span class="project-tag">AWS CloudWatch</span>
+          <span class="project-tag">EHR Integration</span>
+          <span class="project-tag">HIPAA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-outer">
+    <div class="section-eyebrow reveal" style="justify-content:center">Get In Touch</div>
+    <h2 class="contact-heading reveal">Let's build something <em>great.</em></h2>
+    <p class="contact-sub reveal reveal-delay-1">Looking for internships, co-ops, or just want to talk AI product strategy. My inbox is always open.</p>
+    <div class="contact-links reveal reveal-delay-2">
+      <a href="mailto:snavale1@jh.edu?subject=Hi%20Sanket!" class="contact-link primary magnetic">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        snavale1@jh.edu
+      </a>
+      <a href="https://www.linkedin.com/in/sanketnavale1436/" target="_blank" rel="noopener noreferrer" class="contact-link secondary magnetic">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:snavale1@jh.edu?subject=Requesting%20Resume%20-%20Sanket%20Navale&body=Hi%20Sanket,%0D%0A%0D%0AI%20was%20looking%20at%20your%20portfolio%20and%20would%20love%20to%20request%20a%20copy%20of%20your%20full%20resume.%0D%0A%0D%0AThank%20you!" class="contact-link secondary magnetic">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Request Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <span class="footer-logo">Sanket Navale</span>
+  <span style="font-size:.8125rem">Built with precision · © 2026</span>
+  <a href="https://www.linkedin.com/in/sanketnavale1436/" target="_blank" rel="noopener noreferrer" style="font-size:.8125rem">LinkedIn →</a>
+</footer>
+
+<script>
+/* ─── CURSOR ──────────────────────────────────────── */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a,button,.exp-card,.project-card,.skill-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='40px'; cursor.style.height='40px';
+    cursor.style.background='var(--accent-2)'; cursor.style.opacity='.6';
+    ring.style.width='60px'; ring.style.height='60px'; ring.style.opacity='.2';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='10px'; cursor.style.height='10px';
+    cursor.style.background='var(--accent)'; cursor.style.opacity='1';
+    ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='.4';
+  });
+});
+
+/* ─── SCROLL PROGRESS ─────────────────────────────── */
+const prog=document.getElementById('progress');
+window.addEventListener('scroll',()=>{
+  const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  prog.style.width=pct+'%';
+},{ passive:true });
+
+/* ─── NAV SCROLL ──────────────────────────────────── */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>40);
+},{ passive:true });
+
+/* ─── PARTICLES ───────────────────────────────────── */
+const heroBg=document.querySelector('.hero-bg');
+for(let i=0;i<20;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.cssText=`
+    left:${Math.random()*100}%;top:${Math.random()*100}%;
+    --dur:${4+Math.random()*6}s;--delay:${-Math.random()*8}s;
+    --dx:${(Math.random()-0.5)*60}px;--dy:${-40-Math.random()*80}px;
+    width:${2+Math.random()*4}px;height:${2+Math.random()*4}px;
+    background:${Math.random()>.5?'var(--accent)':'var(--accent-2)'};
+  `;
+  heroBg.appendChild(p);
+}
+
+/* ─── MARQUEE ─────────────────────────────────────── */
+const items=['Generative AI','Product Strategy','AWS · Azure · GCP','Golang','FedRAMP','ROI Modeling','Machine Learning','CI/CD Pipelines','AI Governance','TensorFlow','Stakeholder Management','Terraform','Docker · Kubernetes','NLP','Agile / Scrum'];
+const track=document.getElementById('marquee-track');
+const doubled=[...items,...items];
+doubled.forEach(t=>{
+  const div=document.createElement('div');
+  div.className='marquee-item';
+  div.innerHTML=`${t}<span>✦</span>`;
+  track.appendChild(div);
+});
+
+/* ─── SCROLL REVEAL ───────────────────────────────── */
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}
+  });
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+/* ─── SKILL BARS ──────────────────────────────────── */
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-fill').forEach(bar=>{
+        bar.style.width=bar.dataset.width+'%';
+      });
+      barObs.unobserve(e.target);
     }
-    feather.replace();
+  });
+},{threshold:.3});
+document.querySelectorAll('.skill-card').forEach(c=>barObs.observe(c));
 
-    themeToggleBtn.addEventListener('click', function() {
-        document.documentElement.classList.toggle('dark');
-        if (document.documentElement.classList.contains('dark')) {
-            localStorage.setItem('color-theme', 'dark');
-            themeIcon.setAttribute('data-feather', 'sun');
-        } else {
-            localStorage.setItem('color-theme', 'light');
-            themeIcon.setAttribute('data-feather', 'moon');
-        }
-        feather.replace();
-    });
-
-    // FIXED ACCORDIONS LOGIC
-    const accordions = document.querySelectorAll('.accordion-toggle');
-    accordions.forEach(card => {
-      // Look inside the specific card for its content and icon
-      const content = card.querySelector('.accordion-content');
-      const icon = card.querySelector('.icon-wrapper');
-      
-      // Stop clicks inside the content area from closing the accordion
-      if (content) {
-        content.addEventListener('click', (e) => e.stopPropagation());
-      }
-
-      card.addEventListener('click', () => {
-        // Close other accordions
-        accordions.forEach(otherCard => {
-            if (otherCard !== card) {
-                const otherContent = otherCard.querySelector('.accordion-content');
-                const otherIcon = otherCard.querySelector('.icon-wrapper');
-                if (otherContent) {
-                  otherContent.style.maxHeight = null;
-                  otherContent.classList.remove('expanded');
-                }
-                if (otherIcon) {
-                  otherIcon.style.transform = 'rotate(0deg)';
-                }
-            }
-        });
-
-        // Toggle the clicked accordion
-        if (content.style.maxHeight) {
-          content.style.maxHeight = null;
-          content.classList.remove('expanded');
-          icon.style.transform = 'rotate(0deg)';
-        } else {
-          content.style.maxHeight = content.scrollHeight + "px";
-          content.classList.add('expanded');
-          icon.style.transform = 'rotate(180deg)';
-        }
+/* ─── COUNTERS ────────────────────────────────────── */
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.counting').forEach(el=>{
+        const target=+el.dataset.target;
+        let current=0;
+        const step=target/60;
+        const timer=setInterval(()=>{
+          current=Math.min(current+step,target);
+          el.textContent=Math.floor(current);
+          if(current>=target)clearInterval(timer);
+        },16);
       });
+      counterObs.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.stats-strip').forEach(s=>counterObs.observe(s));
+
+/* ─── EXPERIENCE TABS ─────────────────────────────── */
+document.querySelectorAll('.exp-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.exp-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.exp-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.panel).classList.add('active');
+  });
+});
+
+/* ─── ACCORDION EXPAND ────────────────────────────── */
+document.querySelectorAll('.exp-toggle').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const card=btn.closest('.exp-card');
+    const body=card.querySelector('.exp-body');
+    const isOpen=card.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.exp-card.open').forEach(c=>{
+      c.classList.remove('open');
+      c.querySelector('.exp-body').style.maxHeight=null;
     });
+    if(!isOpen){
+      card.classList.add('open');
+      body.style.maxHeight=body.scrollHeight+'px';
+    }
+  });
+});
 
-    // Scroll Animation
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { root: null, threshold: 0.15 });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-  </script>
+/* ─── MAGNETIC BUTTONS ────────────────────────────── */
+document.querySelectorAll('.magnetic').forEach(el=>{
+  el.addEventListener('mousemove',e=>{
+    const r=el.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*0.25;
+    const y=(e.clientY-r.top-r.height/2)*0.25;
+    el.style.transform=`translate(${x}px,${y}px)`;
+  });
+  el.addEventListener('mouseleave',()=>{
+    el.style.transform='';
+  });
+});
+</script>
 </body>
 </html>
